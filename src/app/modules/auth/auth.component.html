@@ -39,9 +39,19 @@
         >
           {{ requiredMsg }}
         </mat-error>
+        <mat-error *ngIf="userAuthError$ | async as error">
+          {{ error.message }}
+        </mat-error>
       </mat-form-field>
 
-      <button mat-raised-button color="primary">Войти</button>
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="loginFormGroup.invalid || (userIsLoading$ | async)"
+        (click)="submit()"
+      >
+        Войти
+      </button>
     </form>
   </div>
 </ion-content>
