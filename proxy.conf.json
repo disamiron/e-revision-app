@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "http://1283715-ce36657.tw1.ru/api",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}
