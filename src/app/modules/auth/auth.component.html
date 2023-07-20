@@ -3,3 +3,45 @@
     <ion-title>Добро пожаловать</ion-title>
   </ion-toolbar>
 </ion-header>
+<ion-content>
+  <div class="login-form">
+    <form [formGroup]="loginFormGroup">
+      <mat-form-field appearance="outline">
+        <mat-label>Номер телефона</mat-label>
+        <input
+          matInput
+          formControlName="login"
+          prefix="+7"
+          [mask]="phoneMask"
+        />
+        <mat-error *ngIf="loginFormGroup.controls.login.hasError('required')">
+          {{ requiredMsg }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" appPassword>
+        <mat-label>Пароль</mat-label>
+        <input
+          [type]="isPasswordHide ? 'password' : 'text'"
+          matInput
+          formControlName="password"
+          autocomplete="off"
+        />
+
+        <mat-icon
+          *ngIf="loginFormGroup.controls.password.value"
+          matSuffix
+          (click)="isPasswordHide = !isPasswordHide"
+          >{{ isPasswordHide ? "visibility_off" : "visibility" }}</mat-icon
+        >
+        <mat-error
+          *ngIf="loginFormGroup.controls.password.hasError('required')"
+        >
+          {{ requiredMsg }}
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary">Войти</button>
+    </form>
+  </div>
+</ion-content>
