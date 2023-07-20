@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
@@ -8,13 +8,17 @@ import { AppComponent } from './app.component';
 import { AuthComponent } from './modules/auth/auth.component';
 
 import { SharedModule } from './shared/shared.module';
-import { StoreModule } from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { reducers, metaReducers } from './data/store/reducers';
 import { environment } from '../environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { UserEffects } from './data/store/effects/user.effects';
+import { StorageService } from './shared/services/storage/storage.service';
+import { StorageType } from './shared/services/storage/storage.type';
+import { loginSuccess } from './data/store/actions/user.actions';
+import { IUser } from './shared/interfaces';
 
 @NgModule({
   declarations: [AppComponent, AuthComponent],
@@ -34,7 +38,21 @@ import { UserEffects } from './data/store/effects/user.effects';
     }),
     StoreRouterConnectingModule.forRoot(),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (store: Store, storage: StorageService) => {
+        return () => {
+          let user = storage.getItem(StorageType.User);
+          if (user) {
+            store.dispatch(loginSuccess({ user: user as IUser }));
+          }
+        };
+      },
+      multi: true,
+      deps: [Store, StorageService],
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

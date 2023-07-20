@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { urlValues } from './shared/constants';
 import { AuthComponent } from './modules/auth/auth.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
+import { AuthGuard } from './shared/guards/auth/auth.guard';
 
 const routes: Routes = [
   {
@@ -11,6 +12,7 @@ const routes: Routes = [
     data: {
       title: 'Добро пожаловать',
     },
+    canActivate: [AuthGuard],
   },
   {
     path: urlValues.dashboard,
@@ -18,6 +20,7 @@ const routes: Routes = [
     data: {
       title: 'Приложение',
     },
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./modules/dashboard/dashboard.module').then(
         (m) => m.DashboardModule
