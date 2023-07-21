@@ -1,1 +1,113 @@
-<p>dashboard works!</p>
+<ion-app id="main-content">
+  <ion-header mode="md">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <button
+          *ngIf="location.path() !== '/' + urlValues.dashboard"
+          mat-icon-button
+          color="white"
+          (click)="back()"
+        >
+          <mat-icon>keyboard_backspace</mat-icon>
+        </button>
+      </ion-buttons>
+
+      <ion-buttons slot="end">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+
+      <ion-title>{{ title }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <router-outlet></router-outlet>
+  </ion-content>
+</ion-app>
+
+<ion-menu contentId="main-content" side="end">
+  <ion-header>
+    <ion-toolbar>
+      <div class="title">
+        <ion-title>{{ appName }}</ion-title>
+
+        <span>ver. {{ version }}</span>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content *ngIf="currentUser$ | async as user">
+    <div class="menu">
+      <div class="menu__navigation">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>
+              <mat-icon>account_circle</mat-icon>
+              {{ user.username }}
+            </ion-card-title>
+
+            <ion-card-subtitle>{{ user.userPhone }}</ion-card-subtitle>
+
+            <ion-card-subtitle>{{ user.roles.join(", ") }}</ion-card-subtitle>
+          </ion-card-header>
+        </ion-card>
+
+        <ion-list [inset]="true">
+          <ion-list-header>Разделы</ion-list-header>
+
+          <ion-item *ngFor="let section of appSections">
+            <ion-label>
+              <mat-icon>{{ section.icon }}</mat-icon>
+              <a [routerLink]="section.url" (click)="closeMenu()">
+                {{ section.name }}
+              </a>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <div class="menu__buttons">
+        <button
+          mat-button
+          color="white"
+          (click)="toggleModeOption(menuButtonsType.Volume)"
+        >
+          <mat-icon> {{ noSound ? "volume_off" : "volume_up" }} </mat-icon>
+          {{ menuButtonsText.volume }}
+        </button>
+
+        <button
+          mat-button
+          color="white"
+          (click)="toggleModeOption(menuButtonsType.TextToSpeech)"
+        >
+          <mat-icon>
+            {{ noTextToSpeech ? "voice_over_off" : "record_voice_over" }}
+          </mat-icon>
+          {{ menuButtonsText.textToSpeech }}
+        </button>
+
+        <button
+          mat-button
+          color="white"
+          (click)="toggleModeOption(menuButtonsType.Vibration)"
+        >
+          <mat-icon>
+            {{ noVibration ? "phonelink_erase" : "phonelink_ring" }}
+          </mat-icon>
+          {{ menuButtonsText.vibration }}
+        </button>
+
+        <button
+          mat-button
+          color="white"
+          [disabled]="userIsLoading$ | async"
+          (click)="logout()"
+        >
+          <mat-icon>exit_to_app</mat-icon>
+          {{ menuButtonsText.logout }}
+        </button>
+      </div>
+    </div>
+  </ion-content>
+</ion-menu>

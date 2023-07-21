@@ -8,3 +8,9 @@ export enum Roles {
   entrepreneur = 'entrepreneur',
   user = 'user',
 }
+
+export enum MenuButtonsType {
+  Volume = 'volume',
+  Vibration = 'vibration',
+  TextToSpeech = 'textToSpeech',
+}

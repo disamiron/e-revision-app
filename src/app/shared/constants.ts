@@ -11,12 +11,20 @@ export const urlValues = {
   view: 'view',
 };
 
-export const appName = 'E-Revision';
+export const appName = 'E Revision';
 
 export const appSections = [
   {
     url: '../' + urlValues.dashboard,
     name: 'Список магазинов',
+    icon: 'view_list',
     isAdminRights: false,
   },
 ];
+
+export const menuButtonsText = {
+  volume: 'Звук',
+  vibration: 'Вибрация',
+  textToSpeech: 'Проговаривание',
+  logout: 'Выйти',
+};

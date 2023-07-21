@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { urlValues } from './shared/constants';
+import { appName, urlValues } from './shared/constants';
 import { AuthComponent } from './modules/auth/auth.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { AuthGuard } from './shared/guards/auth/auth.guard';
@@ -18,7 +18,7 @@ const routes: Routes = [
     path: urlValues.dashboard,
     component: DashboardComponent,
     data: {
-      title: 'Приложение',
+      title: appName,
     },
     canActivate: [AuthGuard],
     loadChildren: () =>

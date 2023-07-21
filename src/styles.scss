@@ -1,6 +1,5 @@
 @import "src/styles/variables";
 
-ion-header {
-  box-shadow: none !important;
-  border-bottom: 1px solid var(--grey);
+* :not(mat-icon) {
+  font-family: "Roboto Condensed", sans-serif !important;
 }

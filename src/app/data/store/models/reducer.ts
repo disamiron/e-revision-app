@@ -1,5 +1,6 @@
 export enum ReducerSections {
   USERS = '[USERS DATA]',
+  LOCATION = '[LOCATION DATA]',
 }
 
 export enum ReducerStatuses {
