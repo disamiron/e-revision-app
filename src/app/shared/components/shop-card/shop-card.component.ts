@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { urlValues } from '../../constants';
 import { RevisionStatus } from '../../enums';
 import { IShop } from '../../interfaces';
-import { Store } from '@ngrx/store';
 import { UtilitiesService } from '../../services/utilities/utilities.service';
 
 @Component({

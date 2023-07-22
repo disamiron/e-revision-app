@@ -13,11 +13,20 @@ const routes: Routes = [
     },
   },
   {
-    path: 'shop/:shopId',
+    path: `${urlValues.shop}/:shopId`,
     component: ShopPageComponent,
     data: {
       title: dashboardTitle.shop,
     },
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import(
+            '../../modules/dashboard/pages/shop-page/shop-page.module'
+          ).then((m) => m.ShopPageModule),
+      },
+    ],
   },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];

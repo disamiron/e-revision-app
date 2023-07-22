@@ -1,3 +1,5 @@
+import { ColorMap } from './enums';
+
 export const urlValues = {
   auth: 'auth',
   dashboard: 'dashboard',
@@ -32,4 +34,11 @@ export const menuButtonsText = {
 export const dashboardTitle = {
   shopList: 'Список магазинов',
   shop: 'Магазин',
+};
+
+export const shopInfoButtonsText = {
+  search: 'Поиск',
+  revision: 'Ревизия',
+  downloadFile: 'Загрузить файл ревизии',
+  productsOnTheWay: 'Продукты в пути',
 };

@@ -11,6 +11,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MatSelectModule,
     MatCheckboxModule,
     MatRadioModule,
+    MatGridListModule,
   ],
   exports: [
     MatButtonModule,
@@ -38,6 +40,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MatSelectModule,
     MatCheckboxModule,
     MatRadioModule,
+    MatGridListModule,
   ],
   providers: [],
 })

@@ -1,0 +1,43 @@
+<mat-card *ngIf="shop$ | async as shop">
+  <mat-card-header>
+    <mat-card-title>{{ shop.shopName }} </mat-card-title>
+
+    <mat-card-subtitle>{{ shop.address }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mat-grid-list cols="2" rowHeight="120px">
+      <mat-grid-tile>
+        <app-grid-button
+          [buttonIcon]="'search'"
+          [buttonText]="shopInfoButtonsText.search"
+          [buttonTextColor]="colorMap.greyText2"
+        ></app-grid-button>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <app-grid-button
+          [buttonIcon]="'list_alt'"
+          [buttonText]="shopInfoButtonsText.revision"
+          [buttonTextColor]="colorMap.greyText2"
+        ></app-grid-button>
+      </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="2">
+        <app-grid-button
+          [buttonIcon]="'insert_drive_file'"
+          [buttonText]="shopInfoButtonsText.downloadFile"
+          [buttonTextColor]="colorMap.greyText2"
+        ></app-grid-button>
+      </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="2">
+        <app-grid-button
+          [buttonIcon]="'local_shipping'"
+          [buttonText]="shopInfoButtonsText.productsOnTheWay"
+          [buttonTextColor]="colorMap.greyText2"
+        ></app-grid-button>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-card-content>
+</mat-card>

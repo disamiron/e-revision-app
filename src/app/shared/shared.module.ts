@@ -5,9 +5,10 @@ import { IonicModule } from '@ionic/angular';
 import { MaterialModule } from './material/material.module';
 import { NgxMaskModule } from 'ngx-mask';
 import { ShopCardComponent } from './components/shop-card/shop-card.component';
+import { GridButtonComponent } from './components/grid-button/grid-button.component';
 
 @NgModule({
-  declarations: [ShopCardComponent],
+  declarations: [ShopCardComponent, GridButtonComponent],
   imports: [
     CommonModule,
     MaterialModule,
@@ -18,6 +19,7 @@ import { ShopCardComponent } from './components/shop-card/shop-card.component';
   ],
   exports: [
     ShopCardComponent,
+    GridButtonComponent,
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
