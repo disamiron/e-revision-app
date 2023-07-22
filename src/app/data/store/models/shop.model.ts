@@ -7,7 +7,6 @@ export interface IShopDataState {
   currentShop: IShop | null;
   error: IError | null;
   isLoading: boolean;
-  progressBar: number | null;
 }
 
 export enum ShopActions {

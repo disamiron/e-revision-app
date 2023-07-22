@@ -6,9 +6,6 @@ import {
   getShopListAction,
   getShopListFailed,
   getShopListSuccess,
-  initCurrentShop,
-  initCurrentShopFailed,
-  updateCurrentShopSuccess,
 } from '../actions/shop.actions';
 import { IShopDataState } from '../models/shop.model';
 
@@ -17,7 +14,6 @@ const initialState: IShopDataState = {
   currentShop: null,
   error: null,
   isLoading: false,
-  progressBar: null,
 };
 
 export const shopDataReducer = createReducer(
@@ -51,7 +47,6 @@ export const shopDataReducer = createReducer(
     (state: IShopDataState, action): IShopDataState => ({
       ...state,
       error: action.error,
-      progressBar: null,
       isLoading: false,
     })
   )

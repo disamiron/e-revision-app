@@ -19,11 +19,6 @@ export const selectShopIsLoading = createSelector(
   (state: IShopDataState) => state.isLoading
 );
 
-export const selectShopFileProgress = createSelector(
-  selectFeature,
-  (state: IShopDataState) => state.progressBar
-);
-
 export const selectCurrentShop = createSelector(
   selectFeature,
   (state: IShopDataState) => state.currentShop
