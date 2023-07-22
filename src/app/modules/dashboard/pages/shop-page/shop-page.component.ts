@@ -20,6 +20,17 @@ export class ShopPageComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
+    this._getCurrentShop();
+  }
+
+  public handleRefresh(event: any) {
+    this._getCurrentShop();
+    setTimeout(() => {
+      event.target.complete();
+    }, 1000);
+  }
+
+  private _getCurrentShop() {
     this.shopId = this._activatedRoute.snapshot?.params?.shopId;
 
     if (this.shopId) {

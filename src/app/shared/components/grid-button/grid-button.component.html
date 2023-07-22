@@ -4,8 +4,10 @@
   [color]="buttonColor"
   *ngIf="buttonText"
 >
-  <mat-icon *ngIf="buttonIcon">{{ buttonIcon }}</mat-icon>
-  <span class="grid-button__text" [style.color]="buttonTextColor">{{
-    buttonText
-  }}</span>
+  <div>
+    <mat-icon *ngIf="buttonIcon">{{ buttonIcon }}</mat-icon>
+    <span class="grid-button__text" [style.color]="buttonTextColor">{{
+      buttonText
+    }}</span>
+  </div>
 </button>

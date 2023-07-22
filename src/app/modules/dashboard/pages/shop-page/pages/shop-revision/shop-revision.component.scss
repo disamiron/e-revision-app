@@ -1,0 +1,23 @@
+:host {
+  margin: 10px 0 0;
+}
+
+mat-card {
+  height: 100%;
+}
+
+mat-card-header {
+  span {
+    font-weight: 600;
+    color: var(--grey-text2);
+  }
+
+  .green {
+    color: var(--green-alert);
+  }
+}
+
+mat-card-content {
+  margin-top: 15px;
+  padding: 0 5px;
+}

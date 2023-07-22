@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ShopInfoComponent } from './pages/shop-info/shop-info.component';
-import { dashboardTitle } from 'src/app/shared/constants';
+import { dashboardTitle, urlValues } from 'src/app/shared/constants';
+import { ShopRevisionComponent } from './pages/shop-revision/shop-revision.component';
 
 const routes: Routes = [
   {
@@ -9,6 +10,13 @@ const routes: Routes = [
     component: ShopInfoComponent,
     data: {
       title: dashboardTitle.shop,
+    },
+  },
+  {
+    path: urlValues.revision,
+    component: ShopRevisionComponent,
+    data: {
+      title: dashboardTitle.revision,
     },
   },
 ];

@@ -1,0 +1,94 @@
+<mat-card *ngIf="shop$ | async as shop">
+  <mat-card-header>
+    <mat-card-title>{{ shop.shopName }}</mat-card-title>
+
+    <mat-card-subtitle
+      class="green"
+      *ngIf="shop.status === revisionStatus.started"
+    >
+      Ревизия в процессе
+    </mat-card-subtitle>
+
+    <mat-card-subtitle *ngIf="shop.revision?.startTime">
+      {{ shop?.revision?.endTime ? "Начало/завершение:" : "Начало ревизии:" }}
+      <span
+        >{{ shop.revision.startTime | date : dateFormat }}
+        {{
+          shop?.revision?.endTime
+            ? " - " + (shop.revision.endTime | date : dateFormat)
+            : ""
+        }}</span
+      >
+    </mat-card-subtitle>
+
+    <mat-card-subtitle *ngIf="shop?.revision?.participants">
+      Количество учатников: <span>{{ shop.revision.participants }}</span>
+    </mat-card-subtitle>
+
+    <mat-card-subtitle
+      *ngIf="shop.revision?.scannedLocalCodes && shop.revision?.localCodes"
+    >
+      Прогресс ревизии:
+      <span
+        >{{ shop.revision.scannedLocalCodes }} /
+        {{ shop.revision.localCodes }}</span
+      >
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mat-grid-list cols="2" rowHeight="120px">
+      <mat-grid-tile>
+        <app-grid-button
+          [buttonIcon]="'speaker_phone'"
+          [buttonText]="shopRevisionButtonsText.scanning"
+          [buttonTextColor]="colorMap.greyText2"
+        ></app-grid-button>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <app-grid-button
+          [buttonIcon]="'search'"
+          [buttonText]="shopRevisionButtonsText.search"
+          [buttonTextColor]="colorMap.greyText2"
+        ></app-grid-button>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <app-grid-button
+          [buttonIcon]="'email'"
+          [buttonText]="shopRevisionButtonsText.sendToMail"
+          [buttonTextColor]="colorMap.greyText2"
+        ></app-grid-button>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <app-grid-button
+          [buttonIcon]="'save_alt'"
+          [buttonText]="shopRevisionButtonsText.downloadFile"
+          [buttonTextColor]="colorMap.greyText2"
+        ></app-grid-button>
+      </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="2">
+        <app-grid-button
+          *ngIf="
+            shop.status !== revisionStatus.started && shop.isProductsLoaded
+          "
+          [buttonIcon]="'play_arrow'"
+          [buttonText]="shopRevisionButtonsText.start"
+          [buttonTextColor]="colorMap.white"
+          [buttonColor]="buttonColorMap.primary"
+        ></app-grid-button>
+
+        <app-grid-button
+          *ngIf="shop.status === revisionStatus.started"
+          [buttonIcon]="'stop'"
+          [buttonText]="shopRevisionButtonsText.complete"
+          [buttonTextColor]="colorMap.white"
+          [buttonColor]="buttonColorMap.warn"
+        ></app-grid-button>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-card-content>
+</mat-card>

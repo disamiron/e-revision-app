@@ -34,6 +34,7 @@ export const menuButtonsText = {
 export const dashboardTitle = {
   shopList: 'Список магазинов',
   shop: 'Магазин',
+  revision: 'Ревизия',
 };
 
 export const shopInfoButtonsText = {
@@ -42,3 +43,14 @@ export const shopInfoButtonsText = {
   downloadFile: 'Загрузить файл ревизии',
   productsOnTheWay: 'Продукты в пути',
 };
+
+export const shopRevisonButtonsText = {
+  scanning: 'Сканирование',
+  search: 'Поиск',
+  sendToMail: 'Отправить результат',
+  downloadFile: 'Скачать результат',
+  start: 'Начать ревизию',
+  complete: 'Закончить ревизию',
+};
+
+export const dateFormat: string = 'dd.MM.YYYY HH:mm';

@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { filter, map } from 'rxjs';
 import { getShopListAction } from 'src/app/data/store/actions/shop.actions';
 import { selectShopList } from 'src/app/data/store/selectors/shop.selectors';
+import { RevisionStatus } from 'src/app/shared/enums';
 import { IShop } from 'src/app/shared/interfaces';
 
 @Component({
@@ -18,10 +20,9 @@ export class ShopListComponent {
 
   public ngOnInit(): void {
     this.getAllShop();
-    // this._store.dispatch(initCurrentShop({ shop: null }));
   }
 
-  handleRefresh(event: any) {
+  public handleRefresh(event: any) {
     this.getAllShop();
     setTimeout(() => {
       event.target.complete();
