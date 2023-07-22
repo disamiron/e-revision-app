@@ -9,7 +9,6 @@ import {
 } from '../actions/user.actions';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap, tap } from 'rxjs';
-import { Router } from '@angular/router';
 import { urlValues } from 'src/app/shared/constants';
 import { StorageService } from 'src/app/shared/services/storage/storage.service';
 import { RevisionService } from 'src/app/shared/services/revision/revision.service';
@@ -20,10 +19,9 @@ import { UtilitiesService } from 'src/app/shared/services/utilities/utilities.se
 export class UserEffects {
   constructor(
     private _actions$: Actions,
-    private _router: Router,
     private _storageService: StorageService,
     private _revisionService: RevisionService,
-    private _utils: UtilitiesService
+    private _utilites: UtilitiesService
   ) {}
 
   login$ = createEffect(() => {
@@ -48,8 +46,11 @@ export class UserEffects {
         ofType(loginSuccess),
         tap((action) => {
           this._storageService.setItem(StorageType.User, action.user);
-          this._router.navigateByUrl(urlValues.dashboard);
-          this._utils.snackBarMessage('Добро пожаловать');
+
+          if (!action.isAppInit) {
+            this._utilites.navigateByUrl(urlValues.dashboard);
+            this._utilites.snackBarMessage('Добро пожаловать');
+          }
         })
       );
     },
@@ -61,7 +62,7 @@ export class UserEffects {
       return this._actions$.pipe(
         ofType(loginFailed),
         tap(() => {
-          this._utils.snackBarMessage('Неверный логин или пароль');
+          this._utilites.snackBarMessage('Неверный логин или пароль');
         })
       );
     },
@@ -90,8 +91,8 @@ export class UserEffects {
         ofType(logoutActionSuccess),
         tap(() => {
           this._storageService.clearStorage();
-          this._utils.snackBarMessage('Вы вышли из системы');
-          this._router.navigateByUrl(urlValues.auth);
+          this._utilites.navigateByUrl(urlValues.auth);
+          this._utilites.snackBarMessage('Вы вышли из системы');
         })
       );
     },

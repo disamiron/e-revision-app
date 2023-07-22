@@ -20,7 +20,7 @@ import { StorageType } from './shared/services/storage/storage.type';
 import { loginSuccess } from './data/store/actions/user.actions';
 import { IUser } from './shared/interfaces';
 import { LocationEffects } from './data/store/effects/location.effects';
-import { RevisionEffects } from './data/store/effects/revision.effects';
+import { ShopEffects } from './data/store/effects/shop.effects';
 
 @NgModule({
   declarations: [AppComponent, AuthComponent],
@@ -33,7 +33,7 @@ import { RevisionEffects } from './data/store/effects/revision.effects';
     StoreModule.forRoot(reducers, {
       metaReducers,
     }),
-    EffectsModule.forRoot([UserEffects, LocationEffects, RevisionEffects]),
+    EffectsModule.forRoot([UserEffects, LocationEffects, ShopEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
@@ -47,7 +47,9 @@ import { RevisionEffects } from './data/store/effects/revision.effects';
         return () => {
           let user = storage.getItem(StorageType.User);
           if (user) {
-            store.dispatch(loginSuccess({ user: user as IUser }));
+            store.dispatch(
+              loginSuccess({ user: user as IUser, isAppInit: true })
+            );
           }
         };
       },

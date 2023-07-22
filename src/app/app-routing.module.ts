@@ -21,10 +21,15 @@ const routes: Routes = [
       title: appName,
     },
     canActivate: [AuthGuard],
-    loadChildren: () =>
-      import('./modules/dashboard/dashboard.module').then(
-        (m) => m.DashboardModule
-      ),
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./modules/dashboard/dashboard.module').then(
+            (m) => m.DashboardModule
+          ),
+      },
+    ],
   },
   { path: '**', redirectTo: urlValues.auth, pathMatch: 'full' },
 ];

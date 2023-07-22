@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getShopListAction } from 'src/app/data/store/actions/revision.actions';
-import { selectShopList } from 'src/app/data/store/selectors/revision.selectors';
+import { getShopListAction } from 'src/app/data/store/actions/shop.actions';
+import { selectShopList } from 'src/app/data/store/selectors/shop.selectors';
 import { IShop } from 'src/app/shared/interfaces';
 
 @Component({

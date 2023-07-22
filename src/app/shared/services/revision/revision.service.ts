@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ILoginData, IShopArray, IUser } from '../../interfaces';
+import { ILoginData, IShop, IShopArray, IUser } from '../../interfaces';
 import { BaseHttpService } from '../base-http/base-http.service';
 
 @Injectable({
@@ -29,5 +29,9 @@ export class RevisionService {
 
   public getAllShop(): Observable<IShopArray> {
     return this._http.get<IShopArray>(this._allShop);
+  }
+
+  public getShopById(id: string): Observable<IShop> {
+    return this._http.get<IShop>(this._shop, { shopId: id });
   }
 }

@@ -31,4 +31,5 @@ export const menuButtonsText = {
 
 export const dashboardTitle = {
   shopList: 'Список магазинов',
+  shop: 'Магазин',
 };

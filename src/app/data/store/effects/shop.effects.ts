@@ -3,14 +3,17 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { RevisionService } from 'src/app/shared/services/revision/revision.service';
 import {
+  getShopByShopIdAction,
+  getShopByShopIdFailed,
+  getShopByShopIdSuccess,
   getShopListAction,
   getShopListFailed,
   getShopListSuccess,
-} from '../actions/revision.actions';
-import { IShopArray } from 'src/app/shared/interfaces';
+} from '../actions/shop.actions';
+import { IShop, IShopArray } from 'src/app/shared/interfaces';
 
 @Injectable()
-export class RevisionEffects {
+export class ShopEffects {
   constructor(
     private _actions$: Actions,
     private _revisionService: RevisionService
@@ -26,6 +29,22 @@ export class RevisionEffects {
           }),
           catchError((error) => {
             return of(getShopListFailed({ error }));
+          })
+        );
+      })
+    );
+  });
+
+  public getShopByShopId$ = createEffect(() => {
+    return this._actions$.pipe(
+      ofType(getShopByShopIdAction),
+      switchMap(({ shopId }) => {
+        return this._revisionService.getShopById(shopId).pipe(
+          map((shop: IShop) => {
+            return getShopByShopIdSuccess({ shop: shop });
+          }),
+          catchError((error) => {
+            return of(getShopByShopIdFailed({ error }));
           })
         );
       })

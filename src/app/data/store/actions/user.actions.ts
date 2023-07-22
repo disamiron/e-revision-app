@@ -10,7 +10,7 @@ export const loginAction = createAction(
 
 export const loginSuccess = createAction(
   `${ReducerSections.USERS}  ${UserActions.Login} ${ReducerStatuses.SUCCESS}`,
-  props<{ user: IUser }>()
+  props<{ user: IUser; isAppInit?: boolean }>()
 );
 
 export const loginFailed = createAction(
