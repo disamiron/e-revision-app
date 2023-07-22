@@ -1,5 +1,10 @@
 import { Location } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import {
   ActivatedRoute,
   ActivatedRouteSnapshot,
@@ -35,6 +40,7 @@ import { selectShopIsLoading } from 'src/app/data/store/selectors/shop.selectors
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent implements OnInit {
   @ViewChild(IonMenu) menu: IonMenu | undefined;
@@ -71,7 +77,6 @@ export class DashboardComponent implements OnInit {
     private _router: Router,
     private _storage: StorageService,
     private _store: Store,
-    private _cdr: ChangeDetectorRef,
     public location: Location
   ) {}
 
@@ -87,8 +92,6 @@ export class DashboardComponent implements OnInit {
     this._setTitle();
 
     this._initVolumeSettings();
-
-    this._cdr.detectChanges();
   }
 
   private _setTitle(): void {
