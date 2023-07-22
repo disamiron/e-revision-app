@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ILoginData, IUser } from '../../interfaces';
+import { ILoginData, IShopArray, IUser } from '../../interfaces';
 import { BaseHttpService } from '../base-http/base-http.service';
 
 @Injectable({
@@ -13,6 +13,10 @@ export class RevisionService {
 
   private readonly _logoutUrl = `${this._authUrl}/logout`;
 
+  private readonly _shop = '/shop';
+
+  private readonly _allShop = `${this._shop}/all`;
+
   constructor(private _http: BaseHttpService) {}
 
   public login(data: ILoginData): Observable<IUser> {
@@ -21,5 +25,9 @@ export class RevisionService {
 
   public logout() {
     return this._http.post(this._logoutUrl);
+  }
+
+  public getAllShop(): Observable<IShopArray> {
+    return this._http.get<IShopArray>(this._allShop);
   }
 }

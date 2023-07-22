@@ -17,6 +17,7 @@
       </ion-buttons>
 
       <ion-title>{{ title }}</ion-title>
+      <!-- <ion-progress-bar type="indeterminate"></ion-progress-bar> -->
     </ion-toolbar>
   </ion-header>
 
@@ -98,12 +99,7 @@
           {{ menuButtonsText.vibration }}
         </button>
 
-        <button
-          mat-button
-          color="white"
-          [disabled]="userIsLoading$ | async"
-          (click)="logout()"
-        >
+        <button mat-button color="white" (click)="logout()">
           <mat-icon>exit_to_app</mat-icon>
           {{ menuButtonsText.logout }}
         </button>

@@ -1,0 +1,33 @@
+<mat-card
+  *ngIf="shop"
+  [class.pointer]="shop.status === RevisionStatus.started || isModerator"
+  [class.active]="shop.status === RevisionStatus.started"
+  (click)="navigateToShop()"
+>
+  <mat-card-header>
+    <mat-card-title>{{ shop.shopName }} </mat-card-title>
+
+    <mat-card-subtitle>{{ shop.address }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <div
+    class="indicator"
+    [class.green]="shop.status === RevisionStatus.started"
+  ></div>
+
+  <mat-card-content
+    class="progress"
+    *ngIf="shop.revision?.scannedLocalCodes && shop.revision?.localCodes"
+  >
+    <p>
+      {{ shop.revision.scannedLocalCodes }} / {{ shop.revision.localCodes }}
+    </p>
+
+    <ion-progress-bar
+      color="primary"
+      mode="determinate"
+      [value]="shop.revision.scannedLocalCodes! / shop.revision.localCodes!"
+    >
+    </ion-progress-bar>
+  </mat-card-content>
+</mat-card>

@@ -20,6 +20,7 @@ import { StorageType } from './shared/services/storage/storage.type';
 import { loginSuccess } from './data/store/actions/user.actions';
 import { IUser } from './shared/interfaces';
 import { LocationEffects } from './data/store/effects/location.effects';
+import { RevisionEffects } from './data/store/effects/revision.effects';
 
 @NgModule({
   declarations: [AppComponent, AuthComponent],
@@ -32,7 +33,7 @@ import { LocationEffects } from './data/store/effects/location.effects';
     StoreModule.forRoot(reducers, {
       metaReducers,
     }),
-    EffectsModule.forRoot([UserEffects, LocationEffects]),
+    EffectsModule.forRoot([UserEffects, LocationEffects, RevisionEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,

@@ -7,7 +7,7 @@ import {
   Router,
 } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { filter, map, Observable, take } from 'rxjs';
+import { combineLatest, filter, forkJoin, map, Observable, take } from 'rxjs';
 import {
   appName,
   appSections,
@@ -27,6 +27,7 @@ import { IonMenu } from '@ionic/angular';
 import { MenuButtonsType } from 'src/app/shared/enums';
 import { logoutAction } from 'src/app/data/store/actions/user.actions';
 import { selectPrevLocaction } from 'src/app/data/store/selectors/location.selectors';
+import { selectRevisionIsLoading } from 'src/app/data/store/selectors/revision.selectors';
 
 @UntilDestroy()
 @Component({
@@ -57,8 +58,6 @@ export class DashboardComponent implements OnInit {
 
   public currentUser$: Observable<IUser | null> =
     this._store.select(selectCurrentUser);
-
-  public userIsLoading$ = this._store.select(selectUserIsLoading);
 
   private _prevLocation$ = this._store.select(selectPrevLocaction);
 

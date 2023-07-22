@@ -1,0 +1,83 @@
+.mat-card {
+  min-width: 290px;
+  min-height: 80px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  background-color: var(--grey);
+  mat-card-header {
+    margin-right: 25px;
+    mat-card-title {
+      display: flex;
+      align-items: center;
+    }
+    mat-card-title,
+    mat-card-subtitle {
+      color: var(--grey-text1);
+    }
+  }
+  mat-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+}
+
+.indicator {
+  position: absolute;
+  top: 20px;
+  right: 15px;
+  width: 15px;
+  height: 15px;
+  background-color: var(--red);
+  border-radius: 50%;
+}
+
+.green {
+  animation: blink 2s linear infinite;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.active {
+  background-color: var(--white);
+  mat-card-header {
+    ::ng-deep .mat-mdc-card-header-text {
+      width: 80%;
+    }
+    mat-card-title {
+      color: var(--black);
+    }
+    mat-card-subtitle {
+      color: var(--grey-text2);
+    }
+  }
+}
+
+@keyframes blink {
+  0% {
+    background-color: #26d820;
+  }
+  50% {
+    background-color: #5f7e5f;
+  }
+  51% {
+    background-color: #5f7e5f;
+  }
+  100% {
+    background-color: #26d820;
+  }
+}
+
+.progress {
+  width: 100%;
+
+  p {
+    font-size: 14px;
+    text-align: end;
+    margin: 10px 0 0;
+    color: var(--grey-text1);
+  }
+}

@@ -7,15 +7,22 @@ import {
   LOCATION_DATA_KEY,
 } from '../models/location.model';
 import { locationDataReducer } from './location.reducer';
+import {
+  IRevisionDataState,
+  REVISION_DATA_KEY,
+} from '../models/revision.model';
+import { revisionDataReducer } from './revision.reducer';
 
 export interface State {
   [USER_DATA_KEY]: IUserDataState;
   [LOCATION_DATA_KEY]: ILocationDataState;
+  [REVISION_DATA_KEY]: IRevisionDataState;
 }
 
 export const reducers: ActionReducerMap<State> = {
   [USER_DATA_KEY]: userDataReducer,
   [LOCATION_DATA_KEY]: locationDataReducer,
+  [REVISION_DATA_KEY]: revisionDataReducer,
 };
 
 export const metaReducers: MetaReducer<State>[] = !environment.production

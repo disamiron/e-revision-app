@@ -28,3 +28,7 @@ export const menuButtonsText = {
   textToSpeech: 'Проговаривание',
   logout: 'Выйти',
 };
+
+export const dashboardTitle = {
+  shopList: 'Список магазинов',
+};

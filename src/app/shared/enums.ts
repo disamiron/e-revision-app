@@ -14,3 +14,9 @@ export enum MenuButtonsType {
   Vibration = 'vibration',
   TextToSpeech = 'textToSpeech',
 }
+
+export enum RevisionStatus {
+  started = 'started',
+  notStarted = 'not-started',
+  completed = 'completed',
+}

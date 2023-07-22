@@ -1,0 +1,17 @@
+:host {
+  display: flex;
+  justify-content: center;
+}
+.shop-list {
+  max-width: 800px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin: 10px 10px 20px;
+}
+.no-data {
+  text-align: center;
+  color: var(--grey-text1);
+  margin: 20px;
+}

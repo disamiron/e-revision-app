@@ -1,0 +1,13 @@
+<ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+  <ion-refresher-content></ion-refresher-content>
+</ion-refresher>
+
+<div class="shop-list" *ngIf="shopList$ | async as shopList; else noData">
+  <div *ngFor="let shop of shopList">
+    <app-shop-card [shop]="shop"></app-shop-card>
+  </div>
+</div>
+
+<ng-template #noData>
+  <p class="no-data">В данный момент нет активных магазинов для ревизии</p>
+</ng-template>
