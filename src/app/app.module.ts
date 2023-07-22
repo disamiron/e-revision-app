@@ -21,6 +21,7 @@ import { loginSuccess } from './data/store/actions/user.actions';
 import { IUser } from './shared/interfaces';
 import { LocationEffects } from './data/store/effects/location.effects';
 import { ShopEffects } from './data/store/effects/shop.effects';
+import { RevisionEffects } from './data/store/effects/revision.effects';
 
 @NgModule({
   declarations: [AppComponent, AuthComponent],
@@ -33,7 +34,12 @@ import { ShopEffects } from './data/store/effects/shop.effects';
     StoreModule.forRoot(reducers, {
       metaReducers,
     }),
-    EffectsModule.forRoot([UserEffects, LocationEffects, ShopEffects]),
+    EffectsModule.forRoot([
+      UserEffects,
+      LocationEffects,
+      ShopEffects,
+      RevisionEffects,
+    ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,

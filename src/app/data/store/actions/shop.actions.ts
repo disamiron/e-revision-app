@@ -31,18 +31,3 @@ export const getShopByShopIdFailed = createAction(
   `${ReducerSections.REVISION} ${ShopActions.GetShopByShopId} ${ReducerStatuses.FAILED}`,
   props<{ error: IError }>()
 );
-
-export const updateCurrentShopAction = createAction(
-  `${ReducerSections.REVISION} ${ShopActions.UpdateCurrentShop}`,
-  props<{ shopId: string }>()
-);
-
-export const updateCurrentShopSuccess = createAction(
-  `${ReducerSections.REVISION} ${ShopActions.UpdateCurrentShop} ${ReducerStatuses.SUCCESS}`,
-  props<{ shop: IShop }>()
-);
-
-export const updateCurrentShopFailed = createAction(
-  `${ReducerSections.REVISION} ${ShopActions.UpdateCurrentShop} ${ReducerStatuses.FAILED}`,
-  props<{ error: IError }>()
-);

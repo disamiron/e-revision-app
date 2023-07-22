@@ -12,7 +12,7 @@ export class LocationEffects {
     private _utilites: UtilitiesService
   ) {}
 
-  navigateToPrevLocation$ = createEffect(
+  public navigateToPrevLocation$ = createEffect(
     () => {
       return this._actions$.pipe(
         ofType(navigateToPrevLocation),

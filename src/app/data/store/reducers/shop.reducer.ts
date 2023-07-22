@@ -31,6 +31,7 @@ export const shopDataReducer = createReducer(
     (state: IShopDataState, action): IShopDataState => ({
       ...state,
       shopList: action.shopList,
+      isLoading: false,
       error: null,
     })
   ),
@@ -38,6 +39,7 @@ export const shopDataReducer = createReducer(
     getShopByShopIdSuccess,
     (state: IShopDataState, action): IShopDataState => ({
       ...state,
+      isLoading: false,
       currentShop: action.shop,
     })
   ),

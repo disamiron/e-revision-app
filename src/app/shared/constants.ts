@@ -40,7 +40,7 @@ export const dashboardTitle = {
 export const shopInfoButtonsText = {
   search: 'Поиск',
   revision: 'Ревизия',
-  downloadFile: 'Загрузить файл ревизии',
+  downloadFile: 'Загрузить продукты',
   productsOnTheWay: 'Продукты в пути',
 };
 
@@ -49,6 +49,7 @@ export const shopRevisonButtonsText = {
   search: 'Поиск',
   sendToMail: 'Отправить результат',
   downloadFile: 'Скачать результат',
+  uploadFile: 'Загрузить файл ревизии',
   start: 'Начать ревизию',
   complete: 'Закончить ревизию',
 };

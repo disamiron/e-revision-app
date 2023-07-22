@@ -21,3 +21,13 @@ mat-card-content {
   margin-top: 15px;
   padding: 0 5px;
 }
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+input[type="file"] {
+  display: none;
+}

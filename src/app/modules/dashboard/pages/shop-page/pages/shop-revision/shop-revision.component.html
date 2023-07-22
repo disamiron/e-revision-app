@@ -70,7 +70,22 @@
         ></app-grid-button>
       </mat-grid-tile>
 
-      <mat-grid-tile [colspan]="2">
+      <mat-grid-tile
+        [colspan]="2"
+        *ngIf="
+          shop.status !== revisionStatus.started && !currentUserWithoutRights
+        "
+      >
+        <app-grid-button
+          [buttonIcon]="'insert_drive_file'"
+          [buttonText]="shopRevisionButtonsText.uploadFile"
+          [buttonTextColor]="colorMap.greyText2"
+          [inputFor]="'file-upload'"
+        >
+        </app-grid-button>
+      </mat-grid-tile>
+
+      <mat-grid-tile [colspan]="2" *ngIf="!currentUserWithoutRights">
         <app-grid-button
           *ngIf="
             shop.status !== revisionStatus.started && shop.isProductsLoaded
@@ -79,6 +94,7 @@
           [buttonText]="shopRevisionButtonsText.start"
           [buttonTextColor]="colorMap.white"
           [buttonColor]="buttonColorMap.primary"
+          (click)="startRevision()"
         ></app-grid-button>
 
         <app-grid-button
@@ -87,8 +103,11 @@
           [buttonText]="shopRevisionButtonsText.complete"
           [buttonTextColor]="colorMap.white"
           [buttonColor]="buttonColorMap.warn"
+          (click)="stopRevision()"
         ></app-grid-button>
       </mat-grid-tile>
     </mat-grid-list>
   </mat-card-content>
 </mat-card>
+
+<input id="file-upload" type="file" (change)="handleFileInput($event)" />

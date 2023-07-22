@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, take } from 'rxjs';
+import { setPrevLocationData } from 'src/app/data/store/actions/location.actions';
 import {
   selectCurrentShop,
   selectCurrentShopId,
@@ -15,7 +16,7 @@ import { UtilitiesService } from 'src/app/shared/services/utilities/utilities.se
   templateUrl: './shop-info.component.html',
   styleUrls: ['./shop-info.component.scss'],
 })
-export class ShopInfoComponent {
+export class ShopInfoComponent implements OnInit {
   public shop$: Observable<IShop | null> =
     this._store.select(selectCurrentShop);
 
@@ -29,6 +30,12 @@ export class ShopInfoComponent {
   public shopInfoButtonsText = shopInfoButtonsText;
 
   constructor(private _store: Store, private _utilites: UtilitiesService) {}
+
+  public ngOnInit(): void {
+    this._store.dispatch(
+      setPrevLocationData({ prevLocaction: urlValues.dashboard })
+    );
+  }
 
   public goToRevision() {
     this._shopId$.pipe(take(1)).subscribe((shopId: string | undefined) => {

@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import {
   ActivatedRoute,
   ActivatedRouteSnapshot,
@@ -19,11 +19,16 @@ import { StorageType } from 'src/app/shared/services/storage/storage.type';
 import packageJson from '../../../../package.json';
 import { IUser } from 'src/app/shared/interfaces';
 import { Store } from '@ngrx/store';
-import { selectCurrentUser } from 'src/app/data/store/selectors/user.selectors';
+import {
+  selectCurrentUser,
+  selectUserIsLoading,
+} from 'src/app/data/store/selectors/user.selectors';
 import { IonMenu } from '@ionic/angular';
 import { MenuButtonsType } from 'src/app/shared/enums';
 import { logoutAction } from 'src/app/data/store/actions/user.actions';
 import { selectPrevLocaction } from 'src/app/data/store/selectors/location.selectors';
+import { selectRevisionIsLoading } from 'src/app/data/store/selectors/revision.selectors';
+import { selectShopIsLoading } from 'src/app/data/store/selectors/shop.selectors';
 
 @UntilDestroy()
 @Component({
@@ -57,11 +62,16 @@ export class DashboardComponent implements OnInit {
 
   private _prevLocation$ = this._store.select(selectPrevLocaction);
 
+  public selectRevisionIsLoading$ = this._store.select(selectRevisionIsLoading);
+  public selectUserIsLoading$ = this._store.select(selectUserIsLoading);
+  public selectShopIsLoading$ = this._store.select(selectShopIsLoading);
+
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
     private _storage: StorageService,
     private _store: Store,
+    private _cdr: ChangeDetectorRef,
     public location: Location
   ) {}
 
@@ -77,6 +87,8 @@ export class DashboardComponent implements OnInit {
     this._setTitle();
 
     this._initVolumeSettings();
+
+    this._cdr.detectChanges();
   }
 
   private _setTitle(): void {

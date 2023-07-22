@@ -3,11 +3,27 @@
   mat-raised-button
   [color]="buttonColor"
   *ngIf="buttonText"
+  [disabled]="
+    (selectRevisionIsLoading$ | async) ||
+    (selectShopIsLoading$ | async) ||
+    (selectUserIsLoading$ | async)
+  "
 >
-  <div>
-    <mat-icon *ngIf="buttonIcon">{{ buttonIcon }}</mat-icon>
-    <span class="grid-button__text" [style.color]="buttonTextColor">{{
-      buttonText
-    }}</span>
+  <div *ngIf="!inputFor">
+    <ng-container *ngTemplateOutlet="buttonContent"></ng-container>
+  </div>
+
+  <div *ngIf="inputFor">
+    <label [for]="inputFor">
+      <ng-container *ngTemplateOutlet="buttonContent"></ng-container>
+    </label>
   </div>
 </button>
+
+<ng-template #buttonContent>
+  <mat-icon *ngIf="buttonIcon">{{ buttonIcon }}</mat-icon>
+
+  <span class="grid-button__text" [style.color]="buttonTextColor">
+    {{ buttonText }}
+  </span>
+</ng-template>

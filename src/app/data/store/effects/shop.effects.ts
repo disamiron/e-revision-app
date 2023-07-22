@@ -11,12 +11,20 @@ import {
   getShopListSuccess,
 } from '../actions/shop.actions';
 import { IShop, IShopArray } from 'src/app/shared/interfaces';
+import {
+  startRevisionSuccess,
+  startUploadRevisionFileSuccess,
+  stopRevisionSuccess,
+} from '../actions/revision.actions';
+import { Store } from '@ngrx/store';
+import { selectCurrentShopId } from '../selectors/shop.selectors';
 
 @Injectable()
 export class ShopEffects {
   constructor(
     private _actions$: Actions,
-    private _revisionService: RevisionService
+    private _revisionService: RevisionService,
+    private _store: Store
   ) {}
 
   public getShopList$ = createEffect(() => {
@@ -41,6 +49,27 @@ export class ShopEffects {
       switchMap(({ shopId }) => {
         return this._revisionService.getShopById(shopId).pipe(
           map((shop: IShop) => {
+            return getShopByShopIdSuccess({ shop: shop });
+          }),
+          catchError((error) => {
+            return of(getShopByShopIdFailed({ error }));
+          })
+        );
+      })
+    );
+  });
+
+  updateCurrentShopAction$ = createEffect(() => {
+    return this._actions$.pipe(
+      ofType(
+        startRevisionSuccess,
+        stopRevisionSuccess,
+        startUploadRevisionFileSuccess
+      ),
+      switchMap(() => this._store.select(selectCurrentShopId)),
+      switchMap((shopId) => {
+        return this._revisionService.getShopById(shopId!).pipe(
+          map((shop) => {
             return getShopByShopIdSuccess({ shop: shop });
           }),
           catchError((error) => {

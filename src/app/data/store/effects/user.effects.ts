@@ -24,7 +24,7 @@ export class UserEffects {
     private _utilites: UtilitiesService
   ) {}
 
-  login$ = createEffect(() => {
+  public login$ = createEffect(() => {
     return this._actions$.pipe(
       ofType(loginAction),
       switchMap((action) => {
@@ -40,7 +40,7 @@ export class UserEffects {
     );
   });
 
-  loginSuccess$ = createEffect(
+  public loginSuccess$ = createEffect(
     () => {
       return this._actions$.pipe(
         ofType(loginSuccess),
@@ -57,7 +57,7 @@ export class UserEffects {
     { dispatch: false }
   );
 
-  loginFailed$ = createEffect(
+  public loginFailed$ = createEffect(
     () => {
       return this._actions$.pipe(
         ofType(loginFailed),
@@ -69,7 +69,7 @@ export class UserEffects {
     { dispatch: false }
   );
 
-  logout$ = createEffect(() => {
+  public logout$ = createEffect(() => {
     return this._actions$.pipe(
       ofType(logoutAction),
       switchMap(() => {
@@ -85,7 +85,7 @@ export class UserEffects {
     );
   });
 
-  logoutSuccess$ = createEffect(
+  public logoutSuccess$ = createEffect(
     () => {
       return this._actions$.pipe(
         ofType(logoutActionSuccess),
