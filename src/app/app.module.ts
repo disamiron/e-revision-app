@@ -65,6 +65,10 @@ import { Capacitor } from '@capacitor/core';
             );
           }
 
+          storage.setItem(StorageType.Notification, {
+            manualEntryOnly: true,
+          });
+
           let volume = storage.getItem(StorageType.Volume);
           if (volume === null) {
             storage.setItem(StorageType.Volume, {

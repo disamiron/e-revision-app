@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Store } from '@ngrx/store';
 import { Observable, filter, take } from 'rxjs';
 import { setPrevLocationData } from 'src/app/data/store/actions/location.actions';
@@ -22,8 +23,10 @@ import {
 import { ButtonColorMap, ColorMap, RevisionStatus } from 'src/app/shared/enums';
 import { IShop } from 'src/app/shared/interfaces';
 import { ConfirmComponent } from 'src/app/shared/modals/confirm/confirm.component';
+import { RevisionService } from 'src/app/shared/services/revision/revision.service';
 import { UtilitiesService } from 'src/app/shared/services/utilities/utilities.service';
 
+@UntilDestroy()
 @Component({
   selector: 'app-shop-revision',
   templateUrl: './shop-revision.component.html',
@@ -49,7 +52,8 @@ export class ShopRevisionComponent implements OnInit {
   constructor(
     private _store: Store,
     private _utilities: UtilitiesService,
-    public _dialog: MatDialog
+    private _revision: RevisionService,
+    private _dialog: MatDialog
   ) {}
 
   public ngOnInit(): void {
@@ -126,6 +130,17 @@ export class ShopRevisionComponent implements OnInit {
           this._store.dispatch(stopRevisionAction({ shopId: shopId! }));
         });
       });
+  }
+
+  public sendResultToEmail() {
+    this._shopId$.pipe(take(1)).subscribe((shopId: string | undefined) => {
+      this._revision
+        .sendResultToEmail(shopId!)
+        .pipe(untilDestroyed(this))
+        .subscribe(() => {
+          this._utilities.snackBarMessage('Успешно отправлено');
+        });
+    });
   }
 
   public handleFileInput(file: any, isShipping: boolean = false) {

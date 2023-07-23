@@ -11,6 +11,8 @@ import { selectCurrentPlatform } from 'src/app/data/store/selectors/platform.sel
 import { selectCurrentShopId } from 'src/app/data/store/selectors/shop.selectors';
 import { urlValues } from 'src/app/shared/constants';
 import { CurrentPlatform } from 'src/app/shared/enums';
+import { StorageService } from 'src/app/shared/services/storage/storage.service';
+import { StorageType } from 'src/app/shared/services/storage/storage.type';
 import { UtilitiesService } from 'src/app/shared/services/utilities/utilities.service';
 
 @UntilDestroy()
@@ -45,7 +47,8 @@ export class BarcodeScannerComponent implements OnInit {
     private _fb: FormBuilder,
     private _utilities: UtilitiesService,
     private _store: Store,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    private _storage: StorageService
   ) {}
 
   public ngOnInit(): void {
@@ -82,10 +85,21 @@ export class BarcodeScannerComponent implements OnInit {
     if (!this.isNative) {
       this.isManuallLogic = true;
 
-      this._utilities.snackBarMessage(
-        'Только ручной ввод. Cканер доступен в мобильной версии.',
-        5000
+      let notification: { manualEntryOnly: boolean } = this._storage.getItem(
+        StorageType.Notification
       );
+
+      if (notification.manualEntryOnly) {
+        this._utilities.snackBarMessage(
+          'Только ручной ввод. Cканер доступен в мобильной версии.',
+          5000
+        );
+      }
+
+      this._storage.setItem(StorageType.Notification, {
+        manualEntryOnly: false,
+      });
+
       return;
     }
 

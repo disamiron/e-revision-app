@@ -15,6 +15,8 @@ import { BaseHttpService } from '../base-http/base-http.service';
 export class RevisionService {
   private readonly _authUrl = '/auth';
 
+  private readonly _admin = '/admin';
+
   private readonly _loginUrl = `${this._authUrl}/login`;
 
   private readonly _logoutUrl = `${this._authUrl}/logout`;
@@ -27,6 +29,7 @@ export class RevisionService {
 
   private readonly _startRevisionUrl = `${this._revisionUrl}/start`;
   private readonly _endRevisionUrl = `${this._revisionUrl}/end`;
+  private readonly _resultUrl = `${this._revisionUrl}/result`;
 
   private readonly _upload = '/upload';
 
@@ -93,6 +96,12 @@ export class RevisionService {
     return this._http.put(
       `${this._shop}/${shopId}${this._productUrl}`,
       product
+    );
+  }
+
+  public sendResultToEmail(shopId: string) {
+    return this._http.get(
+      `${this._admin}${this._shop}/${shopId}${this._resultUrl}`
     );
   }
 }
