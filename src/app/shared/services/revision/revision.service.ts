@@ -30,6 +30,7 @@ export class RevisionService {
   private readonly _startRevisionUrl = `${this._revisionUrl}/start`;
   private readonly _endRevisionUrl = `${this._revisionUrl}/end`;
   private readonly _resultUrl = `${this._revisionUrl}/result`;
+  private readonly _downloadUrl = `${this._revisionUrl}/result/download`;
 
   private readonly _upload = '/upload';
 
@@ -102,6 +103,12 @@ export class RevisionService {
   public sendResultToEmail(shopId: string) {
     return this._http.get(
       `${this._admin}${this._shop}/${shopId}${this._resultUrl}`
+    );
+  }
+
+  public downloadFileRevision(shopId: string) {
+    return this._http.getBlob(
+      `${this._admin}${this._shop}/${shopId}${this._downloadUrl}`
     );
   }
 }

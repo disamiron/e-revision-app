@@ -5,7 +5,7 @@ import {
   HttpHeaders,
   HttpParams,
 } from '@angular/common/http';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { StorageService } from '../storage/storage.service';
 import { StorageType } from '../storage/storage.type';
 import { IUser } from '../../interfaces';
@@ -84,6 +84,24 @@ export class BaseHttpService {
         headers: this._createDefaultHeaders(),
       })
       .pipe(
+        catchError<any, any>((err: HttpErrorResponse) => this._handleError(err))
+      );
+  }
+
+  public getBlob<T>(url: string): Observable<Blob> {
+    let queryParams = new HttpParams();
+
+    return this._http
+      .get<Blob>(this._baseHref + url, {
+        params: queryParams,
+        headers: this._createDefaultHeaders(true),
+        // @ts-ignore
+        responseType: 'blob',
+      })
+      .pipe(
+        map((v) => {
+          return v;
+        }),
         catchError<any, any>((err: HttpErrorResponse) => this._handleError(err))
       );
   }

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Directory, Filesystem } from '@capacitor/filesystem';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Store } from '@ngrx/store';
+import moment from 'moment';
 import { Observable, filter, take } from 'rxjs';
 import { setPrevLocationData } from 'src/app/data/store/actions/location.actions';
 import {
@@ -139,6 +141,47 @@ export class ShopRevisionComponent implements OnInit {
         .pipe(untilDestroyed(this))
         .subscribe(() => {
           this._utilities.snackBarMessage('Успешно отправлено');
+        });
+    });
+  }
+
+  public downloadResult() {
+    this._shopId$.pipe(take(1)).subscribe((shopId: string | undefined) => {
+      this._revision
+        .downloadFileRevision(shopId!)
+        .pipe(untilDestroyed(this))
+        .subscribe((v) => {
+          const blob = new Blob([v]);
+          const fileReader = new FileReader();
+          fileReader.onloadend = () => {
+            const content = fileReader?.result?.toString();
+
+            const date = moment();
+
+            const day_month_year = date.format('DD.MM.YYYY');
+            const hour_minute = date.format('HH.mm');
+
+            const fileName = `ZOUT-${day_month_year}-${hour_minute}.dat`;
+            const directory = Directory.Documents;
+
+            Filesystem.writeFile({
+              path: `${directory}/${fileName}`,
+              data: content!,
+              directory: directory,
+              recursive: true,
+            })
+              .then(() => {
+                this._utilities.snackBarMessage(
+                  `Файл успешно сохранен по маршруту ${directory}/${fileName}`,
+                  5000
+                );
+              })
+              .catch((error) => {
+                this._utilities.snackBarMessage(`Ошибка: ${error}`);
+              });
+          };
+
+          fileReader.readAsText(blob);
         });
     });
   }
