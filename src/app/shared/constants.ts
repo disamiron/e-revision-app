@@ -4,6 +4,7 @@ export const urlValues = {
   auth: 'auth',
   dashboard: 'dashboard',
   revision: 'revision',
+  scan: 'scan',
   product: 'product',
   search: 'search',
   searchShop: 'search-shop',
@@ -35,6 +36,7 @@ export const dashboardTitle = {
   shopList: 'Список магазинов',
   shop: 'Магазин',
   revision: 'Ревизия',
+  scan: 'Сканирование кода',
 };
 
 export const shopInfoButtonsText = {

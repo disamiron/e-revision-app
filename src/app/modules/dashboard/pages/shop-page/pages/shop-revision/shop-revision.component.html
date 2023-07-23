@@ -1,3 +1,7 @@
+<ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+  <ion-refresher-content></ion-refresher-content>
+</ion-refresher>
+
 <mat-card *ngIf="shop$ | async as shop">
   <mat-card-header>
     <mat-card-title>{{ shop.shopName }}</mat-card-title>
@@ -43,6 +47,7 @@
           [buttonIcon]="'speaker_phone'"
           [buttonText]="shopRevisionButtonsText.scanning"
           [buttonTextColor]="colorMap.greyText2"
+          (click)="goToScanner()"
         ></app-grid-button>
       </mat-grid-tile>
 

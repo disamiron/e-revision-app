@@ -7,6 +7,7 @@ import {
   startUploadRevisionFileAction,
   stopRevisionAction,
 } from 'src/app/data/store/actions/revision.actions';
+import { getShopByShopIdAction } from 'src/app/data/store/actions/shop.actions';
 import {
   selectCurrentShop,
   selectCurrentShopId,
@@ -19,6 +20,7 @@ import {
 } from 'src/app/shared/constants';
 import { ButtonColorMap, ColorMap, RevisionStatus } from 'src/app/shared/enums';
 import { IShop } from 'src/app/shared/interfaces';
+import { UtilitiesService } from 'src/app/shared/services/utilities/utilities.service';
 
 @Component({
   selector: 'app-shop-revision',
@@ -42,7 +44,7 @@ export class ShopRevisionComponent implements OnInit {
 
   public currentUserWithoutRights: boolean = true;
 
-  constructor(private _store: Store) {}
+  constructor(private _store: Store, private _utilities: UtilitiesService) {}
 
   public ngOnInit(): void {
     this._shopId$.pipe(take(1)).subscribe((shopId: string | undefined) => {
@@ -60,6 +62,42 @@ export class ShopRevisionComponent implements OnInit {
       .subscribe((currentUserWithoutRights: boolean | undefined) => {
         this.currentUserWithoutRights = Boolean(currentUserWithoutRights);
       });
+  }
+
+  public handleRefresh(event: any) {
+    this._getCurrentShop();
+    setTimeout(() => {
+      event.target.complete();
+    }, 1000);
+  }
+
+  private _getCurrentShop() {
+    this._shopId$.pipe(take(1)).subscribe((shopId: string | undefined) => {
+      if (shopId) {
+        this._store.dispatch(getShopByShopIdAction({ shopId: shopId! }));
+      } else {
+        this._utilities.navigateByUrl(urlValues.dashboard);
+      }
+    });
+  }
+
+  public goToScanner(): void {
+    this._shopId$.pipe(take(1)).subscribe((shopId: string | undefined) => {
+      if (shopId) {
+        const revisionUrl =
+          urlValues.dashboard +
+          '/' +
+          urlValues.shop +
+          '/' +
+          shopId +
+          '/' +
+          urlValues.revision +
+          '/' +
+          urlValues.scan;
+
+        this._utilities.navigateByUrl(revisionUrl);
+      }
+    });
   }
 
   public startRevision(): void {

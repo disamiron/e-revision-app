@@ -21,7 +21,7 @@ export class UserEffects {
     private _actions$: Actions,
     private _storageService: StorageService,
     private _revisionService: RevisionService,
-    private _utilites: UtilitiesService
+    private _utilities: UtilitiesService
   ) {}
 
   public login$ = createEffect(() => {
@@ -48,8 +48,8 @@ export class UserEffects {
           this._storageService.setItem(StorageType.User, action.user);
 
           if (!action.isAppInit) {
-            this._utilites.navigateByUrl(urlValues.dashboard);
-            this._utilites.snackBarMessage('Добро пожаловать');
+            this._utilities.navigateByUrl(urlValues.dashboard);
+            this._utilities.snackBarMessage('Добро пожаловать');
           }
         })
       );
@@ -62,7 +62,7 @@ export class UserEffects {
       return this._actions$.pipe(
         ofType(loginFailed),
         tap(() => {
-          this._utilites.snackBarMessage('Неверный логин или пароль');
+          this._utilities.snackBarMessage('Неверный логин или пароль');
         })
       );
     },
@@ -91,8 +91,8 @@ export class UserEffects {
         ofType(logoutActionSuccess),
         tap(() => {
           this._storageService.clearStorage();
-          this._utilites.navigateByUrl(urlValues.auth);
-          this._utilites.snackBarMessage('Вы вышли из системы');
+          this._utilities.navigateByUrl(urlValues.auth);
+          this._utilities.snackBarMessage('Вы вышли из системы');
         })
       );
     },

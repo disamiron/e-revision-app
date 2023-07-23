@@ -9,7 +9,7 @@ import { UtilitiesService } from 'src/app/shared/services/utilities/utilities.se
 export class LocationEffects {
   constructor(
     private _actions$: Actions,
-    private _utilites: UtilitiesService
+    private _utilities: UtilitiesService
   ) {}
 
   public navigateToPrevLocation$ = createEffect(
@@ -17,7 +17,7 @@ export class LocationEffects {
       return this._actions$.pipe(
         ofType(navigateToPrevLocation),
         tap((action) => {
-          this._utilites.navigateByUrl(action.prevLocaction);
+          this._utilities.navigateByUrl(action.prevLocaction);
         })
       );
     },

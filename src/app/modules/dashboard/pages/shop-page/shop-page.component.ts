@@ -16,27 +16,16 @@ export class ShopPageComponent implements OnInit {
   constructor(
     private _store: Store,
     private _activatedRoute: ActivatedRoute,
-    private _utilites: UtilitiesService
+    private _utilities: UtilitiesService
   ) {}
 
   public ngOnInit(): void {
-    this._getCurrentShop();
-  }
-
-  public handleRefresh(event: any) {
-    this._getCurrentShop();
-    setTimeout(() => {
-      event.target.complete();
-    }, 1000);
-  }
-
-  private _getCurrentShop() {
     this.shopId = this._activatedRoute.snapshot?.params?.shopId;
 
     if (this.shopId) {
       this._store.dispatch(getShopByShopIdAction({ shopId: this.shopId }));
     } else {
-      this._utilites.navigateByUrl(urlValues.dashboard);
+      this._utilities.navigateByUrl(urlValues.dashboard);
     }
   }
 }

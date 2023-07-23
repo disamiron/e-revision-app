@@ -2,6 +2,12 @@ export enum Scope {
   User = 'USER',
 }
 
+export enum CurrentPlatform {
+  ios = 'ios',
+  android = 'android',
+  web = 'web',
+}
+
 export enum Roles {
   admin = 'admin',
   moderator = 'moderator',

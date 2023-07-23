@@ -16,12 +16,12 @@ export class ShopCardComponent {
 
   public isModerator: boolean = true;
 
-  constructor(private _utilites: UtilitiesService) {}
+  constructor(private _utilities: UtilitiesService) {}
 
   public navigateToShop() {
     const shopUrl =
       urlValues.dashboard + '/' + urlValues.shop + '/' + this.shop?.shopId;
 
-    this._utilites.navigateByUrl(shopUrl);
+    this._utilities.navigateByUrl(shopUrl);
   }
 }

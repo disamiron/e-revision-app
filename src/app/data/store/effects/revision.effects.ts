@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, of, switchMap } from 'rxjs';
+import { catchError, map, of, switchMap, tap } from 'rxjs';
 import { RevisionService } from 'src/app/shared/services/revision/revision.service';
 import { UtilitiesService } from 'src/app/shared/services/utilities/utilities.service';
 import {
+  getProductByBarcodeAction,
+  getProductByBarcodeFailed,
+  getProductByBarcodeSuccess,
   startRevisionAction,
   startRevisionFailed,
   startRevisionSuccess,
@@ -15,13 +18,14 @@ import {
   stopRevisionFailed,
   stopRevisionSuccess,
 } from '../actions/revision.actions';
+import { urlValues } from 'src/app/shared/constants';
 
 @Injectable()
 export class RevisionEffects {
   constructor(
     private _actions$: Actions,
     private _revisionService: RevisionService,
-    private _urils: UtilitiesService
+    private _utilities: UtilitiesService
   ) {}
 
   public startRevision$ = createEffect(() => {
@@ -30,7 +34,7 @@ export class RevisionEffects {
       switchMap((action) => {
         return this._revisionService.startRevisionByShopId(action.shopId).pipe(
           map(() => {
-            this._urils.snackBarMessage('Ревизия успешно запущена');
+            this._utilities.snackBarMessage('Ревизия успешно запущена');
             return startRevisionSuccess();
           }),
           catchError((error) => {
@@ -47,7 +51,7 @@ export class RevisionEffects {
       switchMap((action) => {
         return this._revisionService.stopRevisionByShopId(action.shopId).pipe(
           map(() => {
-            this._urils.snackBarMessage('Ревизия остановлена');
+            this._utilities.snackBarMessage('Ревизия остановлена');
             return stopRevisionSuccess();
           }),
           catchError((error) => {
@@ -74,7 +78,7 @@ export class RevisionEffects {
                 return startUploadRevisionFileProgress({ progress: progress });
               }
 
-              this._urils.snackBarMessage('Файл успешно загружен');
+              this._utilities.snackBarMessage('Файл успешно загружен');
               return startUploadRevisionFileSuccess();
             }),
             catchError((error) => {
@@ -84,4 +88,73 @@ export class RevisionEffects {
       })
     );
   });
+
+  public getProductByBarcode$ = createEffect(() => {
+    return this._actions$.pipe(
+      ofType(getProductByBarcodeAction),
+      switchMap((action) => {
+        return this._revisionService
+          .getProductByBarcode(action.shopId, action.barcode)
+          .pipe(
+            map((product) => {
+              return getProductByBarcodeSuccess({
+                shopId: action.shopId,
+                product,
+                isShopSearch: action.isShopSearch,
+              });
+            }),
+            catchError((error) => {
+              return of(getProductByBarcodeFailed({ error }));
+            })
+          );
+      })
+    );
+  });
+
+  getProductByBarcodeSuccess$ = createEffect(
+    () => {
+      return this._actions$.pipe(
+        ofType(getProductByBarcodeSuccess),
+        tap((action) => {
+          // this._urilities.playAudio();
+          // this._utilities.navigateByUrl(
+          //   !action.isShopSearch
+          //     ? urlValues.dashboard +
+          //         '/' +
+          //         urlValues.revision +
+          //         '/' +
+          //         action.shopId +
+          //         '/' +
+          //         urlValues.product +
+          //         '/' +
+          //         action.product.barcode
+          //     : urlValues.dashboard +
+          //         '/' +
+          //         urlValues.revision +
+          //         '/' +
+          //         action.shopId +
+          //         '/' +
+          //         urlValues.product +
+          //         '/' +
+          //         action.product.barcode +
+          //         '/' +
+          //         urlValues.view
+          // );
+        })
+      );
+    },
+    { dispatch: false }
+  );
+
+  getProductByBarcodeFailed$ = createEffect(
+    () => {
+      return this._actions$.pipe(
+        ofType(getProductByBarcodeFailed),
+        tap(() => {
+          // this._urilities.playAudio(true);
+        })
+      );
+    },
+    { dispatch: false }
+  );
 }

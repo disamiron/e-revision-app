@@ -3,6 +3,7 @@ export enum ReducerSections {
   LOCATION = '[LOCATION DATA]',
   REVISION = '[REVISION DATA]',
   SHOP = '[SHOP DATA]',
+  PLATFORM = '[PLATFORM DATA]',
 }
 
 export enum ReducerStatuses {

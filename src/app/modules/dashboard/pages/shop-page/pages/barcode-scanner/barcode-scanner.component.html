@@ -1,0 +1,34 @@
+<mat-card class="content">
+  <mat-card-content>
+    <form [formGroup]="manuallForm" *ngIf="isManuallLogic">
+      <mat-form-field appearance="fill">
+        <mat-label>Штрих-код или локальный код</mat-label>
+        <input type="tel" pattern="[0-9]*" formControlName="barcode" matInput />
+      </mat-form-field>
+      <button
+        mat-raised-button
+        class="h50"
+        color="accent"
+        (click)="submit()"
+        [disabled]="manuallForm.invalid"
+      >
+        Подтвердить
+        <mat-icon>check</mat-icon>
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<div class="scan-method" *ngIf="isNative">
+  <button
+    mat-raised-button
+    color="primary"
+    class="manual-key"
+    (click)="changeScanMethod()"
+  >
+    <mat-icon>
+      {{ isManuallLogic ? "speaker_phone" : "keyboard" }}
+    </mat-icon>
+    {{ isManuallLogic ? "Сканировать" : "Ручной ввод" }}
+  </button>
+</div>

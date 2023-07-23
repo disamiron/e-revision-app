@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ILoginData, IShop, IShopArray, IUser } from '../../interfaces';
+import {
+  ILoginData,
+  IProduct,
+  IShop,
+  IShopArray,
+  IUser,
+} from '../../interfaces';
 import { BaseHttpService } from '../base-http/base-http.service';
 
 @Injectable({
@@ -25,7 +31,9 @@ export class RevisionService {
   private readonly _upload = '/upload';
 
   private readonly _shippedUrl = `/shipped${this._upload}`;
-  private readonly _uploadUrl = `/product${this._upload}`;
+
+  private readonly _productUrl = `/product`;
+  private readonly _uploadUrl = `${this._productUrl}${this._upload}`;
 
   constructor(private _http: BaseHttpService) {}
 
@@ -59,6 +67,18 @@ export class RevisionService {
         isShipping ? this._shippedUrl : this._uploadUrl
       }`,
       file
+    );
+  }
+
+  public getProductByBarcode(
+    shopId: string,
+    barcode: string
+  ): Observable<IProduct> {
+    return this._http.get<IProduct>(
+      `${this._shop}/${shopId}${this._productUrl}`,
+      {
+        code: barcode,
+      }
     );
   }
 }

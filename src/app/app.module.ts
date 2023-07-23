@@ -22,6 +22,8 @@ import { IUser } from './shared/interfaces';
 import { LocationEffects } from './data/store/effects/location.effects';
 import { ShopEffects } from './data/store/effects/shop.effects';
 import { RevisionEffects } from './data/store/effects/revision.effects';
+import { setCurrentPlatformData } from './data/store/actions/platform.actions';
+import { Capacitor } from '@capacitor/core';
 
 @NgModule({
   declarations: [AppComponent, AuthComponent],
@@ -51,11 +53,25 @@ import { RevisionEffects } from './data/store/effects/revision.effects';
       provide: APP_INITIALIZER,
       useFactory: (store: Store, storage: StorageService) => {
         return () => {
+          store.dispatch(
+            setCurrentPlatformData({ platform: Capacitor.getPlatform() })
+          );
+
           let user = storage.getItem(StorageType.User);
+
           if (user) {
             store.dispatch(
               loginSuccess({ user: user as IUser, isAppInit: true })
             );
+          }
+
+          let volume = storage.getItem(StorageType.Volume);
+          if (volume === null) {
+            storage.setItem(StorageType.Volume, {
+              noSound: false,
+              noVibration: false,
+              noTextToSpeech: false,
+            });
           }
         };
       },

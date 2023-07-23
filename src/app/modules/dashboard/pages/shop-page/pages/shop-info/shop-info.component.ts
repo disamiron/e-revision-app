@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, take } from 'rxjs';
 import { setPrevLocationData } from 'src/app/data/store/actions/location.actions';
+import { getShopByShopIdAction } from 'src/app/data/store/actions/shop.actions';
 import {
   selectCurrentShop,
   selectCurrentShopId,
@@ -29,12 +30,29 @@ export class ShopInfoComponent implements OnInit {
 
   public shopInfoButtonsText = shopInfoButtonsText;
 
-  constructor(private _store: Store, private _utilites: UtilitiesService) {}
+  constructor(private _store: Store, private _utilities: UtilitiesService) {}
 
   public ngOnInit(): void {
     this._store.dispatch(
       setPrevLocationData({ prevLocaction: urlValues.dashboard })
     );
+  }
+
+  public handleRefresh(event: any) {
+    this._getCurrentShop();
+    setTimeout(() => {
+      event.target.complete();
+    }, 1000);
+  }
+
+  private _getCurrentShop() {
+    this._shopId$.pipe(take(1)).subscribe((shopId: string | undefined) => {
+      if (shopId) {
+        this._store.dispatch(getShopByShopIdAction({ shopId: shopId! }));
+      } else {
+        this._utilities.navigateByUrl(urlValues.dashboard);
+      }
+    });
   }
 
   public goToRevision() {
@@ -49,7 +67,7 @@ export class ShopInfoComponent implements OnInit {
           '/' +
           urlValues.revision;
 
-        this._utilites.navigateByUrl(revisionUrl);
+        this._utilities.navigateByUrl(revisionUrl);
       }
     });
   }
