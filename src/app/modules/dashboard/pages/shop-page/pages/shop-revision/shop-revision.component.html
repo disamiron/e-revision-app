@@ -42,7 +42,7 @@
 
   <mat-card-content>
     <mat-grid-list cols="2" rowHeight="120px">
-      <mat-grid-tile>
+      <mat-grid-tile *ngIf="shop.status === revisionStatus.started">
         <app-grid-button
           [buttonIcon]="'speaker_phone'"
           [buttonText]="shopRevisionButtonsText.scanning"
@@ -52,11 +52,12 @@
         ></app-grid-button>
       </mat-grid-tile>
 
-      <mat-grid-tile>
+      <mat-grid-tile [colspan]="shop.status === revisionStatus.started ? 1 : 2">
         <app-grid-button
           [buttonIcon]="'search'"
           [buttonText]="shopRevisionButtonsText.search"
           [buttonTextColor]="colorMap.greyText2"
+          (click)="goToSearch()"
         ></app-grid-button>
       </mat-grid-tile>
 
@@ -78,22 +79,7 @@
         ></app-grid-button>
       </mat-grid-tile>
 
-      <mat-grid-tile
-        [colspan]="2"
-        *ngIf="
-          shop.status !== revisionStatus.started && !currentUserWithoutRights
-        "
-      >
-        <app-grid-button
-          [buttonIcon]="'insert_drive_file'"
-          [buttonText]="shopRevisionButtonsText.uploadFile"
-          [buttonTextColor]="colorMap.greyText2"
-          [inputFor]="'file-upload'"
-        >
-        </app-grid-button>
-      </mat-grid-tile>
-
-      <mat-grid-tile [colspan]="2" *ngIf="!currentUserWithoutRights">
+      <mat-grid-tile *ngIf="!currentUserWithoutRights" [colspan]="2">
         <app-grid-button
           *ngIf="
             shop.status !== revisionStatus.started && shop.isProductsLoaded
@@ -117,5 +103,3 @@
     </mat-grid-list>
   </mat-card-content>
 </mat-card>
-
-<input id="file-upload" type="file" (change)="handleFileInput($event)" />

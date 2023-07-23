@@ -5,6 +5,7 @@ import { dashboardTitle, urlValues } from 'src/app/shared/constants';
 import { ShopRevisionComponent } from './pages/shop-revision/shop-revision.component';
 import { BarcodeScannerComponent } from './pages/barcode-scanner/barcode-scanner.component';
 import { ProductFormComponent } from './pages/product-form/product-form.component';
+import { ProductSearchComponent } from './pages/product-search/product-search.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,13 @@ const routes: Routes = [
       title: dashboardTitle.product,
       isEditMode: false,
       isViewMode: false,
+    },
+  },
+  {
+    path: `${urlValues.revision}/${urlValues.search}`,
+    component: ProductSearchComponent,
+    data: {
+      title: dashboardTitle.search,
     },
   },
 ];

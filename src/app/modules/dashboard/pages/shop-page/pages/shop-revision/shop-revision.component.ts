@@ -112,6 +112,25 @@ export class ShopRevisionComponent implements OnInit {
     });
   }
 
+  public goToSearch(): void {
+    this._shopId$.pipe(take(1)).subscribe((shopId: string | undefined) => {
+      if (shopId) {
+        const revisionUrl =
+          urlValues.dashboard +
+          '/' +
+          urlValues.shop +
+          '/' +
+          shopId +
+          '/' +
+          urlValues.revision +
+          '/' +
+          urlValues.search;
+
+        this._utilities.navigateByUrl(revisionUrl);
+      }
+    });
+  }
+
   public startRevision(): void {
     this._shopId$.pipe(take(1)).subscribe((shopId: string | undefined) => {
       this._store.dispatch(startRevisionAction({ shopId: shopId! }));
@@ -183,22 +202,6 @@ export class ShopRevisionComponent implements OnInit {
 
           fileReader.readAsText(blob);
         });
-    });
-  }
-
-  public handleFileInput(file: any, isShipping: boolean = false) {
-    if (!file) {
-      return;
-    }
-
-    this._shopId$.pipe(take(1)).subscribe((shopId: string | undefined) => {
-      this._store.dispatch(
-        startUploadRevisionFileAction({
-          shopId: shopId!,
-          file: file.target.files[0],
-          isShipping,
-        })
-      );
     });
   }
 }

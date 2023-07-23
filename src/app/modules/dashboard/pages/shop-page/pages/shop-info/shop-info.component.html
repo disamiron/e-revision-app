@@ -17,15 +17,7 @@
   </mat-card-header>
 
   <mat-card-content>
-    <mat-grid-list cols="2" rowHeight="120px">
-      <mat-grid-tile>
-        <app-grid-button
-          [buttonIcon]="'search'"
-          [buttonText]="shopInfoButtonsText.search"
-          [buttonTextColor]="colorMap.greyText2"
-        ></app-grid-button>
-      </mat-grid-tile>
-
+    <mat-grid-list cols="2" rowHeight="130px">
       <mat-grid-tile>
         <app-grid-button
           [buttonIcon]="'list_alt'"
@@ -38,19 +30,43 @@
 
       <mat-grid-tile>
         <app-grid-button
-          [buttonIcon]="'insert_drive_file'"
-          [buttonText]="shopInfoButtonsText.downloadFile"
+          [buttonIcon]="'search'"
+          [buttonText]="shopInfoButtonsText.search"
           [buttonTextColor]="colorMap.greyText2"
         ></app-grid-button>
       </mat-grid-tile>
 
-      <mat-grid-tile>
+      <mat-grid-tile
+        *ngIf="
+          shop.status !== revisionStatus.started && !currentUserWithoutRights
+        "
+      >
+        <app-grid-button
+          [buttonIcon]="'insert_drive_file'"
+          [buttonText]="shopInfoButtonsText.downloadFile"
+          [buttonTextColor]="colorMap.greyText2"
+          [inputFor]="'file-upload'"
+        ></app-grid-button>
+      </mat-grid-tile>
+
+      <mat-grid-tile
+        *ngIf="!currentUserWithoutRights"
+        [colspan]="shop.status === revisionStatus.started ? 2 : 1"
+      >
         <app-grid-button
           [buttonIcon]="'local_shipping'"
           [buttonText]="shopInfoButtonsText.productsOnTheWay"
           [buttonTextColor]="colorMap.greyText2"
+          [inputFor]="'file-shipping-upload'"
         ></app-grid-button>
       </mat-grid-tile>
     </mat-grid-list>
   </mat-card-content>
 </mat-card>
+
+<input id="file-upload" type="file" (change)="handleFileInput($event)" />
+<input
+  id="file-shipping-upload"
+  type="file"
+  (change)="handleFileInput($event, true)"
+/>

@@ -46,6 +46,9 @@ export class UserEffects {
         ofType(loginSuccess),
         tap((action) => {
           this._storageService.setItem(StorageType.User, action.user);
+          this._storageService.setItem(StorageType.Notification, {
+            manualEntryOnly: true,
+          });
 
           if (!action.isAppInit) {
             this._utilities.navigateByUrl(urlValues.dashboard);

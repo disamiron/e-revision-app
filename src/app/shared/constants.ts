@@ -38,18 +38,19 @@ export const dashboardTitle = {
   revision: 'Ревизия',
   scan: 'Сканирование кода',
   product: 'Продукт',
+  search: 'Поиск по ревизии',
 };
 
 export const shopInfoButtonsText = {
-  search: 'Поиск',
+  search: 'Поиск по магазину',
   revision: 'Ревизия',
-  downloadFile: 'Загрузить продукты',
-  productsOnTheWay: 'Продукты в пути',
+  downloadFile: 'Загрузить файл товаров',
+  productsOnTheWay: 'Загрузить файл товаров в пути',
 };
 
 export const shopRevisonButtonsText = {
   scanning: 'Сканирование',
-  search: 'Поиск',
+  search: 'Поиск по ревизии',
   sendToMail: 'Отправить результат',
   downloadFile: 'Скачать результат',
   uploadFile: 'Загрузить файл ревизии',
