@@ -117,29 +117,33 @@ export class RevisionEffects {
         ofType(getProductByBarcodeSuccess),
         tap((action) => {
           // this._urilities.playAudio();
-          // this._utilities.navigateByUrl(
-          //   !action.isShopSearch
-          //     ? urlValues.dashboard +
-          //         '/' +
-          //         urlValues.revision +
-          //         '/' +
-          //         action.shopId +
-          //         '/' +
-          //         urlValues.product +
-          //         '/' +
-          //         action.product.barcode
-          //     : urlValues.dashboard +
-          //         '/' +
-          //         urlValues.revision +
-          //         '/' +
-          //         action.shopId +
-          //         '/' +
-          //         urlValues.product +
-          //         '/' +
-          //         action.product.barcode +
-          //         '/' +
-          //         urlValues.view
-          // );
+          this._utilities.navigateByUrl(
+            !action.isShopSearch
+              ? urlValues.dashboard +
+                  '/' +
+                  urlValues.shop +
+                  '/' +
+                  action.shopId +
+                  '/' +
+                  urlValues.revision +
+                  '/' +
+                  urlValues.product +
+                  '/' +
+                  action.product.barcode
+              : urlValues.dashboard +
+                  '/' +
+                  urlValues.shop +
+                  '/' +
+                  action.shopId +
+                  '/' +
+                  urlValues.revision +
+                  '/' +
+                  urlValues.product +
+                  '/' +
+                  action.product.barcode +
+                  '/' +
+                  urlValues.edit
+          );
         })
       );
     },

@@ -1,0 +1,12 @@
+mat-card {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  mat-card-header {
+    margin-bottom: 10px;
+
+    mat-card-title {
+      font-size: 18px;
+      color: var(--grey-text2);
+    }
+  }
+}

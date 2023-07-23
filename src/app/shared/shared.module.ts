@@ -6,9 +6,10 @@ import { MaterialModule } from './material/material.module';
 import { NgxMaskModule } from 'ngx-mask';
 import { ShopCardComponent } from './components/shop-card/shop-card.component';
 import { GridButtonComponent } from './components/grid-button/grid-button.component';
+import { ConfirmComponent } from './modals/confirm/confirm.component';
 
 @NgModule({
-  declarations: [ShopCardComponent, GridButtonComponent],
+  declarations: [ShopCardComponent, GridButtonComponent, ConfirmComponent],
   imports: [
     CommonModule,
     MaterialModule,
@@ -25,6 +26,7 @@ import { GridButtonComponent } from './components/grid-button/grid-button.compon
     ReactiveFormsModule,
     IonicModule,
     NgxMaskModule,
+    ConfirmComponent,
   ],
 })
 export class SharedModule {}

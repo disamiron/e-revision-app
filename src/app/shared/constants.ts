@@ -37,6 +37,7 @@ export const dashboardTitle = {
   shop: 'Магазин',
   revision: 'Ревизия',
   scan: 'Сканирование кода',
+  product: 'Продукт',
 };
 
 export const shopInfoButtonsText = {

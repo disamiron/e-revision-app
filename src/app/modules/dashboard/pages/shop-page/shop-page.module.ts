@@ -7,9 +7,10 @@ import { ShopPageComponent } from './shop-page.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ShopRevisionComponent } from './pages/shop-revision/shop-revision.component';
 import { BarcodeScannerComponent } from './pages/barcode-scanner/barcode-scanner.component';
+import { ProductFormComponent } from './pages/product-form/product-form.component';
 
 @NgModule({
-  declarations: [ShopPageComponent, ShopInfoComponent, ShopRevisionComponent, BarcodeScannerComponent],
+  declarations: [ShopPageComponent, ShopInfoComponent, ShopRevisionComponent, BarcodeScannerComponent, ProductFormComponent],
   imports: [CommonModule, ShopPageRoutingModule, SharedModule],
 })
 export class ShopPageModule {}

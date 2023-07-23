@@ -1,0 +1,25 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title> {{ data.title }}</mat-card-title>
+  </mat-card-header>
+
+  <mat-grid-list cols="2" rowHeight="120px">
+    <mat-grid-tile>
+      <app-grid-button
+        mat-dialog-close="confirm"
+        [buttonIcon]="'done'"
+        [buttonText]="'Подтвердить'"
+        [buttonTextColor]="colorMap.white"
+        [buttonColor]="buttonColorMap.primary"
+      ></app-grid-button>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <app-grid-button
+        mat-dialog-close="cancel"
+        [buttonIcon]="'close'"
+        [buttonText]="'Отмена'"
+      ></app-grid-button>
+    </mat-grid-tile>
+  </mat-grid-list>
+</mat-card>

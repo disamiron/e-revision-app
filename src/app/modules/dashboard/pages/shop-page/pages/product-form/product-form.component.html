@@ -1,0 +1,90 @@
+<mat-card class="content">
+  <mat-card-content>
+    <form [formGroup]="productForm">
+      <mat-grid-list cols="3" rowHeight="65px">
+        <mat-grid-tile [colspan]="3">
+          <mat-form-field appearance="fill">
+            <mat-label>Наименование продукта</mat-label>
+            <input formControlName="productName" matInput />
+          </mat-form-field>
+        </mat-grid-tile>
+        <!-- -- -->
+        <mat-grid-tile>
+          <mat-form-field appearance="fill">
+            <mat-label>Локальный код</mat-label>
+            <input formControlName="localCode" matInput />
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field appearance="fill">
+            <mat-label>Цена, руб.</mat-label>
+            <input formControlName="price" matInput />
+          </mat-form-field>
+        </mat-grid-tile>
+        <!-- -- -->
+        <mat-grid-tile>
+          <mat-form-field appearance="fill">
+            <mat-label>Единиц в упакове</mat-label>
+            <input formControlName="unitsPerPack" matInput />
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field appearance="fill">
+            <mat-label>На складе</mat-label>
+            <input formControlName="quantity" matInput />
+          </mat-form-field>
+        </mat-grid-tile>
+        <!-- -- -->
+        <mat-grid-tile *ngIf="!isEditMode && !currentUserWithoutRights">
+          <mat-form-field appearance="fill">
+            <mat-label>Отсканированно</mat-label>
+            <input
+              type="tel"
+              pattern="[0-9]*"
+              formControlName="scannedQuantity"
+              matInput
+            />
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile *ngIf="productForm.controls.shippedQuantity.value">
+          <mat-form-field appearance="fill">
+            <mat-label>Товаров в пути</mat-label>
+            <input formControlName="shippedQuantity" matInput />
+          </mat-form-field>
+        </mat-grid-tile>
+        <!-- -- -->
+        <mat-grid-tile [colspan]="3" *ngIf="!isViewMode">
+          <mat-form-field appearance="fill">
+            <mat-label>{{
+              isEditMode ? "Отсканированное количество" : "Количество"
+            }}</mat-label>
+            <input
+              type="tel"
+              pattern="[0-9]*"
+              maxlength="4"
+              formControlName="createdQuantity"
+              #quantityInput
+              matInput
+            />
+          </mat-form-field>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </form>
+
+    <div class="submit">
+      <button
+        *ngIf="!isViewMode"
+        mat-raised-button
+        color="accent"
+        [disabled]="productForm.invalid"
+        (click)="sumbit()"
+      >
+        <mat-icon>library_add</mat-icon>
+        Готово
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

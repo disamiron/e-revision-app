@@ -81,4 +81,18 @@ export class RevisionService {
       }
     );
   }
+
+  public saveProduct(shopId: string, product: Partial<IProduct>) {
+    return this._http.post(
+      `${this._shop}/${shopId}${this._productUrl}`,
+      product
+    );
+  }
+
+  public editProduct(shopId: string, product: Partial<IProduct>) {
+    return this._http.put(
+      `${this._shop}/${shopId}${this._productUrl}`,
+      product
+    );
+  }
 }

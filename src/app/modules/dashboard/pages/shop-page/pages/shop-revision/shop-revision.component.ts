@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { Observable, take } from 'rxjs';
+import { Observable, filter, take } from 'rxjs';
 import { setPrevLocationData } from 'src/app/data/store/actions/location.actions';
 import {
   startRevisionAction,
@@ -20,6 +21,7 @@ import {
 } from 'src/app/shared/constants';
 import { ButtonColorMap, ColorMap, RevisionStatus } from 'src/app/shared/enums';
 import { IShop } from 'src/app/shared/interfaces';
+import { ConfirmComponent } from 'src/app/shared/modals/confirm/confirm.component';
 import { UtilitiesService } from 'src/app/shared/services/utilities/utilities.service';
 
 @Component({
@@ -44,7 +46,11 @@ export class ShopRevisionComponent implements OnInit {
 
   public currentUserWithoutRights: boolean = true;
 
-  constructor(private _store: Store, private _utilities: UtilitiesService) {}
+  constructor(
+    private _store: Store,
+    private _utilities: UtilitiesService,
+    public _dialog: MatDialog
+  ) {}
 
   public ngOnInit(): void {
     this._shopId$.pipe(take(1)).subscribe((shopId: string | undefined) => {
@@ -107,9 +113,19 @@ export class ShopRevisionComponent implements OnInit {
   }
 
   public stopRevision(): void {
-    this._shopId$.pipe(take(1)).subscribe((shopId: string | undefined) => {
-      this._store.dispatch(stopRevisionAction({ shopId: shopId! }));
-    });
+    this._dialog
+      .open(ConfirmComponent, {
+        data: {
+          title: 'Вы уверены, что хотите остановить ревизию?',
+        },
+      })
+      .afterClosed()
+      .pipe(filter((v) => v === 'confirm'))
+      .subscribe(() => {
+        this._shopId$.pipe(take(1)).subscribe((shopId: string | undefined) => {
+          this._store.dispatch(stopRevisionAction({ shopId: shopId! }));
+        });
+      });
   }
 
   public handleFileInput(file: any, isShipping: boolean = false) {
