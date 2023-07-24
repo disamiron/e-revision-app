@@ -64,3 +64,23 @@ export const getProductByBarcodeFailed = createAction(
   `${ReducerSections.REVISION} ${RevisionActions.GetProductByBarcode} ${ReducerStatuses.FAILED}`,
   props<{ error: IError }>()
 );
+
+export const goToEditingProduct = createAction(
+  `${ReducerSections.REVISION} ${RevisionActions.GoToEditingProduct}`,
+  props<{ product: IProduct; shopId: string }>()
+);
+
+export const getProductListByByLocalIdAction = createAction(
+  `${ReducerSections.REVISION} ${RevisionActions.GetProductListByByLocalId}`,
+  props<{ shopId: string; searchValue: string }>()
+);
+
+export const getProductListByByLocalIdSuccess = createAction(
+  `${ReducerSections.REVISION} ${RevisionActions.GetProductListByByLocalId} ${ReducerStatuses.SUCCESS}`,
+  props<{ productList: IProduct[] | null }>()
+);
+
+export const getProductListByByLocalIdFailed = createAction(
+  `${ReducerSections.REVISION} ${RevisionActions.GetProductListByByLocalId} ${ReducerStatuses.FAILED}`,
+  props<{ error: IError }>()
+);

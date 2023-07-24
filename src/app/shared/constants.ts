@@ -38,6 +38,7 @@ export const dashboardTitle = {
   revision: 'Ревизия',
   scan: 'Сканирование кода',
   product: 'Продукт',
+  editProduct: 'Редактирование',
   search: 'Поиск по ревизии',
 };
 

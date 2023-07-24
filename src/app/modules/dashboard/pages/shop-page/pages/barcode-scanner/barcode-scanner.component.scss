@@ -4,7 +4,7 @@
 
 mat-card {
   height: 100%;
-  background-color: var(--grey-fone);
+  background-color: var(--grey-background);
 
   mat-card-content {
     form {
@@ -26,4 +26,8 @@ mat-card {
   width: 100%;
   top: 60vh;
   z-index: 2;
+}
+
+.camera-active {
+  top: 70vh;
 }

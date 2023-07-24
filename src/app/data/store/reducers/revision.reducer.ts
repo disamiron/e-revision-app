@@ -3,6 +3,10 @@ import {
   getProductByBarcodeAction,
   getProductByBarcodeFailed,
   getProductByBarcodeSuccess,
+  getProductListByByLocalIdAction,
+  getProductListByByLocalIdFailed,
+  getProductListByByLocalIdSuccess,
+  goToEditingProduct,
   startRevisionFailed,
   startUploadRevisionFileAction,
   startUploadRevisionFileFailed,
@@ -14,6 +18,7 @@ import { IRevisionDataState } from '../models/revision.model';
 
 const initialState: IRevisionDataState = {
   currentProduct: null,
+  productsSearchList: null,
   error: null,
   isLoading: false,
   progressBar: null,
@@ -23,18 +28,10 @@ export const revisionDataReducer = createReducer(
   initialState,
   on(
     getProductByBarcodeAction,
+    getProductListByByLocalIdAction,
     (state: IRevisionDataState): IRevisionDataState => ({
       ...state,
       isLoading: true,
-    })
-  ),
-  on(
-    getProductByBarcodeSuccess,
-    (state: IRevisionDataState, action): IRevisionDataState => ({
-      ...state,
-      currentProduct: action.product,
-      error: null,
-      isLoading: false,
     })
   ),
   on(
@@ -44,6 +41,25 @@ export const revisionDataReducer = createReducer(
       progressBar: 0,
       isLoading: true,
       error: null,
+    })
+  ),
+  on(
+    goToEditingProduct,
+    getProductByBarcodeSuccess,
+    (state: IRevisionDataState, action): IRevisionDataState => ({
+      ...state,
+      currentProduct: action.product,
+      error: null,
+      isLoading: false,
+    })
+  ),
+  on(
+    getProductListByByLocalIdSuccess,
+    (state: IRevisionDataState, action): IRevisionDataState => ({
+      ...state,
+      productsSearchList: action.productList,
+      error: null,
+      isLoading: false,
     })
   ),
   on(
@@ -66,6 +82,7 @@ export const revisionDataReducer = createReducer(
   ),
   on(
     getProductByBarcodeFailed,
+    getProductListByByLocalIdFailed,
     startUploadRevisionFileFailed,
     startRevisionFailed,
     stopRevisionFailed,

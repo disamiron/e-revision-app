@@ -1,9 +1,10 @@
-import { IError, IProduct, IShop } from 'src/app/shared/interfaces';
+import { IError, IProduct } from 'src/app/shared/interfaces';
 
 export const REVISION_DATA_KEY = 'revisionData';
 
 export interface IRevisionDataState {
   currentProduct: IProduct | null;
+  productsSearchList: IProduct[] | null;
   error: IError | null;
   isLoading: boolean;
   progressBar: number | null;
@@ -14,4 +15,6 @@ export enum RevisionActions {
   StopRevision = 'StopRevision',
   GetProductByBarcode = 'GetProductByBarcode',
   UploadRevisionFile = 'UploadRevisionFile',
+  GetProductListByByLocalId = 'GetProductListByByLocalId',
+  GoToEditingProduct = 'GoToEditingProduct',
 }

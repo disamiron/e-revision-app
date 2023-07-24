@@ -7,9 +7,15 @@ import { NgxMaskModule } from 'ngx-mask';
 import { ShopCardComponent } from './components/shop-card/shop-card.component';
 import { GridButtonComponent } from './components/grid-button/grid-button.component';
 import { ConfirmComponent } from './modals/confirm/confirm.component';
+import { ProductCardComponent } from './components/product-card/product-card.component';
 
 @NgModule({
-  declarations: [ShopCardComponent, GridButtonComponent, ConfirmComponent],
+  declarations: [
+    ShopCardComponent,
+    ProductCardComponent,
+    GridButtonComponent,
+    ConfirmComponent,
+  ],
   imports: [
     CommonModule,
     MaterialModule,
@@ -20,6 +26,7 @@ import { ConfirmComponent } from './modals/confirm/confirm.component';
   ],
   exports: [
     ShopCardComponent,
+    ProductCardComponent,
     GridButtonComponent,
     MaterialModule,
     FormsModule,

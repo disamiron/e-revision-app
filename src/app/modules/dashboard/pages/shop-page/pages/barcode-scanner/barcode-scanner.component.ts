@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { BarcodeScanner } from '@capacitor-mobi/barcode-scanner';
@@ -21,7 +21,7 @@ import { UtilitiesService } from 'src/app/shared/services/utilities/utilities.se
   templateUrl: './barcode-scanner.component.html',
   styleUrls: ['./barcode-scanner.component.scss'],
 })
-export class BarcodeScannerComponent implements OnInit {
+export class BarcodeScannerComponent implements OnInit, OnDestroy {
   public isManuallLogic: boolean = true;
 
   public isPermision: boolean = false;
@@ -168,5 +168,11 @@ export class BarcodeScannerComponent implements OnInit {
         isShopSearch: this.isShopSearch,
       })
     );
+  }
+
+  public ngOnDestroy() {
+    if (this.isNative) {
+      this._stopScan();
+    }
   }
 }

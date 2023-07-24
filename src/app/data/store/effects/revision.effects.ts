@@ -7,6 +7,10 @@ import {
   getProductByBarcodeAction,
   getProductByBarcodeFailed,
   getProductByBarcodeSuccess,
+  getProductListByByLocalIdAction,
+  getProductListByByLocalIdFailed,
+  getProductListByByLocalIdSuccess,
+  goToEditingProduct,
   startRevisionAction,
   startRevisionFailed,
   startRevisionSuccess,
@@ -111,12 +115,12 @@ export class RevisionEffects {
     );
   });
 
-  getProductByBarcodeSuccess$ = createEffect(
+  public getProductByBarcodeSuccess$ = createEffect(
     () => {
       return this._actions$.pipe(
         ofType(getProductByBarcodeSuccess),
         tap((action) => {
-          // this._urilities.playAudio();
+          // this._utilities.playAudio();
           this._utilities.navigateByUrl(
             !action.isShopSearch
               ? urlValues.dashboard +
@@ -150,12 +154,58 @@ export class RevisionEffects {
     { dispatch: false }
   );
 
-  getProductByBarcodeFailed$ = createEffect(
+  public getProductByBarcodeFailed$ = createEffect(
     () => {
       return this._actions$.pipe(
         ofType(getProductByBarcodeFailed),
         tap(() => {
-          // this._urilities.playAudio(true);
+          // this._utilities.playAudio(true);
+        })
+      );
+    },
+    { dispatch: false }
+  );
+
+  public getProductListByByLocalId$ = createEffect(() => {
+    return this._actions$.pipe(
+      ofType(getProductListByByLocalIdAction),
+      switchMap((action) => {
+        return this._revisionService
+          .searchByLocalId(action.shopId, action.searchValue)
+          .pipe(
+            map((productList) => {
+              return getProductListByByLocalIdSuccess({
+                productList: productList.content,
+              });
+            }),
+            catchError((error) => {
+              return of(getProductListByByLocalIdFailed({ error }));
+            })
+          );
+      })
+    );
+  });
+
+  public goToEditingProduct$ = createEffect(
+    () => {
+      return this._actions$.pipe(
+        ofType(goToEditingProduct),
+        tap((action) => {
+          this._utilities.navigateByUrl(
+            urlValues.dashboard +
+              '/' +
+              urlValues.shop +
+              '/' +
+              action.shopId +
+              '/' +
+              urlValues.revision +
+              '/' +
+              urlValues.product +
+              '/' +
+              action.product.barcode +
+              '/' +
+              urlValues.edit
+          );
         })
       );
     },

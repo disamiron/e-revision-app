@@ -1,9 +1,10 @@
 :host {
   display: flex;
   justify-content: center;
-  background-color: var(--grey-fone);
+  background-color: var(--grey-background);
   height: 100%;
 }
+
 .shop-list {
   max-width: 800px;
   width: 100%;

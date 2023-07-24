@@ -113,7 +113,8 @@ export class ProductFormComponent implements OnInit, AfterViewInit {
                         urlValues.revision +
                         '/' +
                         urlValues.scan
-                      : urlValues.dashboard +
+                      : //need to update when view mode will be ready
+                        urlValues.dashboard +
                         '/' +
                         urlValues.shop +
                         '/' +
@@ -136,7 +137,7 @@ export class ProductFormComponent implements OnInit, AfterViewInit {
                       '/' +
                       urlValues.revision +
                       '/' +
-                      urlValues.scan,
+                      urlValues.search,
                   })
                 );
 
@@ -256,7 +257,7 @@ export class ProductFormComponent implements OnInit, AfterViewInit {
                 '/' +
                 urlValues.revision +
                 '/' +
-                urlValues.scan
+                urlValues.search
             );
           });
       }

@@ -12,6 +12,11 @@ export const selectRevisionCurrentProduct = createSelector(
   (state: IRevisionDataState) => state.currentProduct
 );
 
+export const selectRevisionProductsSearchList = createSelector(
+  selectFeature,
+  (state: IRevisionDataState) => state.productsSearchList
+);
+
 export const selectRevisionError = createSelector(
   selectFeature,
   (state: IRevisionDataState) => state.error

@@ -1,4 +1,46 @@
+:host {
+  margin: 10px 0 0;
+}
+
 mat-card {
-  height: 100%;
-  background-color: var(--grey-fone);
+  min-height: 100%;
+  height: auto;
+  background-color: var(--grey-background);
+
+  mat-card-content {
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      mat-form-field {
+        min-width: 300px;
+        width: 100%;
+      }
+    }
+
+    .product-list {
+      max-width: 800px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+
+      app-product-card:last-child {
+        padding-bottom: 50px;
+      }
+    }
+  }
+}
+
+.scan-method {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  top: 60vh;
+  z-index: 2;
+}
+
+.camera-active {
+  top: 70vh;
 }

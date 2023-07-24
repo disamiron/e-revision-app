@@ -1,3 +1,68 @@
-<mat-card>
-  <mat-card-content> </mat-card-content>
+<mat-card class="content">
+  <mat-card-content>
+    <form [formGroup]="searchFormGroup" *ngIf="isManuallLogic">
+      <mat-form-field appearance="fill">
+        <mat-label> Штрих-код или локальный код </mat-label>
+
+        <input
+          type="tel"
+          pattern="[0-9]*"
+          formControlName="searchValue"
+          matInput
+        />
+
+        <button
+          *ngIf="searchFormGroup.value.searchValue"
+          matSuffix
+          mat-icon-button
+          aria-label="Clear"
+          (click)="clear()"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </form>
+
+    <div
+      class="product-list"
+      *ngIf="productList$ | async as productList; else noData"
+    >
+      <app-product-card
+        *ngFor="let product of productList"
+        [product]="product"
+        [shopId]="shopId!"
+        [currentUserWithoutRights]="currentUserWithoutRights"
+      ></app-product-card>
+    </div>
+  </mat-card-content>
 </mat-card>
+
+<div
+  class="scan-method"
+  [class.camera-active]="!isManuallLogic"
+  *ngIf="isNative"
+>
+  <button
+    mat-raised-button
+    color="primary"
+    class="manual-key"
+    (click)="changeScanMethod()"
+  >
+    <mat-icon>
+      {{ isManuallLogic ? "speaker_phone" : "keyboard" }}
+    </mat-icon>
+    {{ isManuallLogic ? "Сканировать" : "Ручной ввод" }}
+  </button>
+</div>
+
+<ng-template #noData>
+  <mat-card-subtitle *ngIf="isManuallLogic">
+    {{
+      searchFormGroup.value.searchValue === null ||
+      searchFormGroup.value.searchValue === "" ||
+      searchFormGroup.value.searchValue?.length < 7
+        ? "Для поиска введите не менее 7 знаков штрих-кода или локального кода"
+        : "Продуктов не найдено"
+    }}
+  </mat-card-subtitle>
+</ng-template>

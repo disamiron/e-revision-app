@@ -40,6 +40,15 @@ const routes: Routes = [
     },
   },
   {
+    path: `${urlValues.revision}/${urlValues.product}/:productId/${urlValues.edit}`,
+    component: ProductFormComponent,
+    data: {
+      title: dashboardTitle.editProduct,
+      isEditMode: true,
+      isViewMode: false,
+    },
+  },
+  {
     path: `${urlValues.revision}/${urlValues.search}`,
     component: ProductSearchComponent,
     data: {

@@ -19,7 +19,11 @@
   </mat-card-content>
 </mat-card>
 
-<div class="scan-method" *ngIf="isNative">
+<div
+  class="scan-method"
+  [class.camera-active]="!isManuallLogic"
+  *ngIf="isNative"
+>
   <button
     mat-raised-button
     color="primary"

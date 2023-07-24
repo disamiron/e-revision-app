@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import {
   ILoginData,
   IProduct,
+  IProductArray,
   IShop,
   IShopArray,
   IUser,
@@ -31,6 +32,7 @@ export class RevisionService {
   private readonly _endRevisionUrl = `${this._revisionUrl}/end`;
   private readonly _resultUrl = `${this._revisionUrl}/result`;
   private readonly _downloadUrl = `${this._revisionUrl}/result/download`;
+  private readonly _searchUrl = `${this._revisionUrl}/search`;
 
   private readonly _upload = '/upload';
 
@@ -109,6 +111,15 @@ export class RevisionService {
   public downloadFileRevision(shopId: string) {
     return this._http.getBlob(
       `${this._admin}${this._shop}/${shopId}${this._downloadUrl}`
+    );
+  }
+
+  public searchByLocalId(
+    shopId: string,
+    localCode: string
+  ): Observable<IProductArray> {
+    return this._http.get<IProductArray>(
+      `${this._shop}/${shopId}${this._searchUrl}/${localCode}`
     );
   }
 }
