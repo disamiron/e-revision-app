@@ -27,13 +27,15 @@ export interface IShop {
   shopName: string;
   status: RevisionStatus;
   isProductsLoaded: boolean;
-  revision: {
-    participants: number;
-    localCodes: number;
-    scannedLocalCodes: number;
-    startTime: string;
-    endTime: string;
-  };
+  revision: IShopRevisionInfo | null;
+}
+
+export interface IShopRevisionInfo {
+  participants: number;
+  localCodes?: number;
+  scannedLocalCodes?: number;
+  startTime: string;
+  endTime: string;
 }
 
 export interface IShopArray {

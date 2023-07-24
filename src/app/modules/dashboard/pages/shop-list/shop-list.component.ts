@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { filter, map } from 'rxjs';
+import { Observable, filter, map, take } from 'rxjs';
 import { getShopListAction } from 'src/app/data/store/actions/shop.actions';
 import { selectShopList } from 'src/app/data/store/selectors/shop.selectors';
 import { RevisionStatus } from 'src/app/shared/enums';
@@ -14,7 +14,14 @@ import { IShop } from 'src/app/shared/interfaces';
 export class ShopListComponent {
   public shopList: IShop[] = [];
 
-  public shopList$ = this._store.select(selectShopList);
+  public shopList$: Observable<IShop[] | undefined> = this._store
+    .select(selectShopList)
+    .pipe(
+      map((shopList) => {
+        var modShopList = shopList?.slice(0)?.sort(this._sortShopFunction);
+        return modShopList;
+      })
+    );
 
   constructor(private _store: Store) {}
 
@@ -31,5 +38,20 @@ export class ShopListComponent {
 
   public getAllShop() {
     this._store.dispatch(getShopListAction());
+  }
+
+  private _sortShopFunction(a: IShop, b: IShop) {
+    if (
+      a.status === RevisionStatus.started &&
+      b.status === RevisionStatus.started
+    ) {
+      return 0;
+    }
+
+    if (a.status === RevisionStatus.started) {
+      return -1;
+    }
+
+    return 1;
   }
 }

@@ -1,6 +1,8 @@
 :host {
   display: flex;
   justify-content: center;
+  background-color: var(--grey-fone);
+  height: 100%;
 }
 .shop-list {
   max-width: 800px;
@@ -9,7 +11,12 @@
   flex-direction: column;
   gap: 25px;
   margin: 10px 10px 20px;
+
+  app-shop-card:last-child {
+    padding-bottom: 50px;
+  }
 }
+
 .no-data {
   text-align: center;
   color: var(--grey-text1);

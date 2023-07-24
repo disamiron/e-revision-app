@@ -4,7 +4,11 @@
   [class.active]="shop.status === RevisionStatus.started"
   (click)="navigateToShop()"
 >
-  <mat-card-header>
+  <mat-card-header
+    [class.extra-padding]="
+      !shop.revision?.scannedLocalCodes || !shop.revision?.localCodes
+    "
+  >
     <mat-card-title>{{ shop.shopName }} </mat-card-title>
 
     <mat-card-subtitle>{{ shop.address }}</mat-card-subtitle>
@@ -20,13 +24,13 @@
     *ngIf="shop.revision?.scannedLocalCodes && shop.revision?.localCodes"
   >
     <p>
-      {{ shop.revision.scannedLocalCodes }} / {{ shop.revision.localCodes }}
+      {{ shop.revision?.scannedLocalCodes }} / {{ shop.revision?.localCodes }}
     </p>
 
     <ion-progress-bar
       color="primary"
       mode="determinate"
-      [value]="shop.revision.scannedLocalCodes! / shop.revision.localCodes!"
+      [value]="shop.revision?.scannedLocalCodes! / shop.revision?.localCodes!"
     >
     </ion-progress-bar>
   </mat-card-content>

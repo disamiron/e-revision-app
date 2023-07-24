@@ -16,17 +16,17 @@
     <mat-card-subtitle *ngIf="shop.revision?.startTime">
       {{ shop?.revision?.endTime ? "Начало/завершение:" : "Начало ревизии:" }}
       <span
-        >{{ shop.revision.startTime | date : dateFormat }}
+        >{{ shop.revision?.startTime | date : dateFormat }}
         {{
           shop?.revision?.endTime
-            ? " - " + (shop.revision.endTime | date : dateFormat)
+            ? " - " + (shop.revision?.endTime | date : dateFormat)
             : ""
         }}</span
       >
     </mat-card-subtitle>
 
     <mat-card-subtitle *ngIf="shop?.revision?.participants">
-      Количество учатников: <span>{{ shop.revision.participants }}</span>
+      Количество учатников: <span>{{ shop.revision?.participants }}</span>
     </mat-card-subtitle>
 
     <mat-card-subtitle
@@ -34,8 +34,8 @@
     >
       Прогресс ревизии:
       <span
-        >{{ shop.revision.scannedLocalCodes }} /
-        {{ shop.revision.localCodes }}</span
+        >{{ shop.revision?.scannedLocalCodes }} /
+        {{ shop.revision?.localCodes }}</span
       >
     </mat-card-subtitle>
   </mat-card-header>

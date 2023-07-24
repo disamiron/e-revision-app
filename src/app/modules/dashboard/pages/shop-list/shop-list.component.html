@@ -3,9 +3,7 @@
 </ion-refresher>
 
 <div class="shop-list" *ngIf="shopList$ | async as shopList; else noData">
-  <div *ngFor="let shop of shopList">
-    <app-shop-card [shop]="shop"></app-shop-card>
-  </div>
+  <app-shop-card *ngFor="let shop of shopList" [shop]="shop"></app-shop-card>
 </div>
 
 <ng-template #noData>
