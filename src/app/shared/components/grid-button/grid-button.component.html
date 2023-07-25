@@ -6,7 +6,8 @@
   [disabled]="
     (selectRevisionIsLoading$ | async) ||
     (selectShopIsLoading$ | async) ||
-    (selectUserIsLoading$ | async)
+    (selectUserIsLoading$ | async) ||
+    isDisable
   "
 >
   <div *ngIf="!inputFor">

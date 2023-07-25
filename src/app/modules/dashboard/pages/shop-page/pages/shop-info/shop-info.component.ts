@@ -67,14 +67,21 @@ export class ShopInfoComponent implements OnInit {
   }
 
   public goToRevision() {
-    this._shopId$.pipe(take(1)).subscribe((shopId: string | undefined) => {
-      if (shopId) {
+    this.shop$.pipe(take(1)).subscribe((shop: IShop | null) => {
+      if (
+        this.currentUserWithoutRights &&
+        shop?.status === RevisionStatus.notStarted
+      ) {
+        return;
+      }
+
+      if (shop?.shopId) {
         const revisionUrl =
           urlValues.dashboard +
           '/' +
           urlValues.shop +
           '/' +
-          shopId +
+          shop?.shopId +
           '/' +
           urlValues.revision;
 

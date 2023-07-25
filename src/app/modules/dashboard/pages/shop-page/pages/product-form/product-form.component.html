@@ -22,21 +22,22 @@
             <input formControlName="price" matInput />
           </mat-form-field>
         </mat-grid-tile>
-        <!-- -- -->
+
         <mat-grid-tile>
           <mat-form-field appearance="fill">
             <mat-label>Единиц в упакове</mat-label>
             <input formControlName="unitsPerPack" matInput />
           </mat-form-field>
         </mat-grid-tile>
+        <!-- -- -->
 
-        <mat-grid-tile>
+        <mat-grid-tile *ngIf="!currentUserWithoutRights">
           <mat-form-field appearance="fill">
             <mat-label>На складе</mat-label>
             <input formControlName="quantity" matInput />
           </mat-form-field>
         </mat-grid-tile>
-        <!-- -- -->
+
         <mat-grid-tile *ngIf="!isEditMode && !currentUserWithoutRights">
           <mat-form-field appearance="fill">
             <mat-label>Отсканированно</mat-label>

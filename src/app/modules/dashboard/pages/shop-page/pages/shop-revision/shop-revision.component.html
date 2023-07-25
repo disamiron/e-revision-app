@@ -61,7 +61,7 @@
         ></app-grid-button>
       </mat-grid-tile>
 
-      <mat-grid-tile>
+      <mat-grid-tile *ngIf="!currentUserWithoutRights">
         <app-grid-button
           [buttonIcon]="'email'"
           [buttonText]="shopRevisionButtonsText.sendToMail"
@@ -70,7 +70,7 @@
         ></app-grid-button>
       </mat-grid-tile>
 
-      <mat-grid-tile>
+      <mat-grid-tile *ngIf="!currentUserWithoutRights">
         <app-grid-button
           [buttonIcon]="'save_alt'"
           [buttonText]="shopRevisionButtonsText.downloadFile"

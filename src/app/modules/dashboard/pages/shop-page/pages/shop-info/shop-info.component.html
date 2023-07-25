@@ -24,6 +24,10 @@
           [buttonText]="shopInfoButtonsText.revision"
           [buttonTextColor]="colorMap.white"
           [buttonColor]="buttonColorMap.primary"
+          [isDisable]="
+            currentUserWithoutRights &&
+            shop.status === revisionStatus.notStarted
+          "
           (click)="goToRevision()"
         ></app-grid-button>
       </mat-grid-tile>

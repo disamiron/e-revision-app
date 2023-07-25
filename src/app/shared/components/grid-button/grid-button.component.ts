@@ -21,6 +21,8 @@ export class GridButtonComponent {
 
   @Input() public inputFor: string | null = null;
 
+  @Input() public isDisable: boolean = false;
+
   public selectRevisionIsLoading$ = this._store.select(selectRevisionIsLoading);
   public selectUserIsLoading$ = this._store.select(selectUserIsLoading);
   public selectShopIsLoading$ = this._store.select(selectShopIsLoading);
