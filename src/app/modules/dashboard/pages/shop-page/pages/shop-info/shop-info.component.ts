@@ -83,6 +83,23 @@ export class ShopInfoComponent implements OnInit {
     });
   }
 
+  public goToStoreSearch() {
+    this._shopId$.pipe(take(1)).subscribe((shopId: string | undefined) => {
+      if (shopId) {
+        const revisionUrl =
+          urlValues.dashboard +
+          '/' +
+          urlValues.shop +
+          '/' +
+          shopId +
+          '/' +
+          urlValues.storeSearch;
+
+        this._utilities.navigateByUrl(revisionUrl);
+      }
+    });
+  }
+
   public handleFileInput(file: any, isShipping: boolean = false) {
     if (!file) {
       return;

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BarcodeScanner } from '@capacitor-mobi/barcode-scanner';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -59,7 +59,8 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
     private _fb: FormBuilder,
     private _utilities: UtilitiesService,
     private _store: Store,
-    private _storage: StorageService
+    private _storage: StorageService,
+    private _cdr: ChangeDetectorRef
   ) {}
 
   public ngOnInit() {
@@ -139,7 +140,7 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
       this._storage.setItem(StorageType.Notification, {
         manualEntryOnly: false,
       });
-
+      this._cdr.detectChanges();
       return;
     }
 
@@ -150,6 +151,7 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
           this._startScan();
         } else {
           this.isManuallLogic = true;
+          this._cdr.detectChanges();
         }
       });
   }
@@ -176,6 +178,7 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
     this.isManuallLogic = false;
 
     BarcodeScanner.hideBackground();
+    this._cdr.detectChanges();
     from(BarcodeScanner.startScan({}))
       .pipe(untilDestroyed(this))
       .subscribe((v) => {
@@ -186,6 +189,7 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
             searchValue: v.content,
           });
           this.isManuallLogic = true;
+          this._cdr.detectChanges();
         }
       });
   }
@@ -193,6 +197,7 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
   private _stopScan() {
     BarcodeScanner.stopScan();
     BarcodeScanner.showBackground();
+    this._cdr.detectChanges();
   }
 
   public clear() {
@@ -203,6 +208,7 @@ export class ProductSearchComponent implements OnInit, OnDestroy {
     this.searchFormGroup.patchValue({
       searchValue: null,
     });
+    this._cdr.detectChanges();
   }
 
   public ngOnDestroy() {

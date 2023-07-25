@@ -2,6 +2,10 @@
   <ion-toolbar>
     <ion-title>Добро пожаловать</ion-title>
   </ion-toolbar>
+  <ion-progress-bar
+    *ngIf="userIsLoading$ | async"
+    type="indeterminate"
+  ></ion-progress-bar>
 </ion-header>
 <ion-content>
   <div class="login-form">

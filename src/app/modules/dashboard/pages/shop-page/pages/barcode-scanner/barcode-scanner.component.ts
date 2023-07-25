@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { BarcodeScanner } from '@capacitor-mobi/barcode-scanner';
@@ -48,7 +48,8 @@ export class BarcodeScannerComponent implements OnInit, OnDestroy {
     private _utilities: UtilitiesService,
     private _store: Store,
     private _activatedRoute: ActivatedRoute,
-    private _storage: StorageService
+    private _storage: StorageService,
+    private _cdr: ChangeDetectorRef
   ) {}
 
   public ngOnInit(): void {
@@ -56,16 +57,19 @@ export class BarcodeScannerComponent implements OnInit, OnDestroy {
       if (shopId) {
         this._shopId = shopId;
 
+        const prevLocaction = this.isShopSearch
+          ? urlValues.dashboard + '/' + urlValues.shop + '/' + shopId
+          : urlValues.dashboard +
+            '/' +
+            urlValues.shop +
+            '/' +
+            shopId +
+            '/' +
+            urlValues.revision;
+
         this._store.dispatch(
           setPrevLocationData({
-            prevLocaction:
-              urlValues.dashboard +
-              '/' +
-              urlValues.shop +
-              '/' +
-              shopId +
-              '/' +
-              urlValues.revision,
+            prevLocaction: prevLocaction,
           })
         );
       } else {
@@ -100,6 +104,7 @@ export class BarcodeScannerComponent implements OnInit, OnDestroy {
         manualEntryOnly: false,
       });
 
+      this._cdr.detectChanges();
       return;
     }
 
@@ -110,6 +115,7 @@ export class BarcodeScannerComponent implements OnInit, OnDestroy {
           this._startScan();
         } else {
           this.isManuallLogic = true;
+          this._cdr.detectChanges();
         }
       });
   }
@@ -118,6 +124,7 @@ export class BarcodeScannerComponent implements OnInit, OnDestroy {
     this.isManuallLogic = false;
 
     BarcodeScanner.hideBackground();
+    this._cdr.detectChanges();
     from(BarcodeScanner.startScan({}))
       .pipe(untilDestroyed(this))
       .subscribe((v) => {
@@ -130,6 +137,7 @@ export class BarcodeScannerComponent implements OnInit, OnDestroy {
 
           this.getProductByBarcode(v.content!);
           this.isManuallLogic = true;
+          this._cdr.detectChanges();
         }
       });
   }
@@ -137,6 +145,7 @@ export class BarcodeScannerComponent implements OnInit, OnDestroy {
   private _stopScan() {
     BarcodeScanner.stopScan();
     BarcodeScanner.showBackground();
+    this._cdr.detectChanges();
   }
 
   public changeScanMethod() {

@@ -31,6 +31,14 @@ const routes: Routes = [
     },
   },
   {
+    path: `${urlValues.storeSearch}`,
+    component: BarcodeScannerComponent,
+    data: {
+      title: dashboardTitle.storeSearch,
+      isShopSearch: true,
+    },
+  },
+  {
     path: `${urlValues.revision}/${urlValues.product}/:productId`,
     component: ProductFormComponent,
     data: {
@@ -46,6 +54,15 @@ const routes: Routes = [
       title: dashboardTitle.editProduct,
       isEditMode: true,
       isViewMode: false,
+    },
+  },
+  {
+    path: `${urlValues.revision}/${urlValues.product}/:productId/${urlValues.view}`,
+    component: ProductFormComponent,
+    data: {
+      title: dashboardTitle.viewProduct,
+      isEditMode: false,
+      isViewMode: true,
     },
   },
   {

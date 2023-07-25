@@ -110,11 +110,8 @@ export class ProductFormComponent implements OnInit, AfterViewInit {
                         '/' +
                         shopId +
                         '/' +
-                        urlValues.revision +
-                        '/' +
-                        urlValues.scan
-                      : //need to update when view mode will be ready
-                        urlValues.dashboard +
+                        urlValues.storeSearch
+                      : urlValues.dashboard +
                         '/' +
                         urlValues.shop +
                         '/' +

@@ -46,6 +46,7 @@ export const userDataReducer = createReducer(
     (state: IUserDataState, action): IUserDataState => ({
       ...state,
       error: action.error,
+      isLoading: false,
     })
   )
 );

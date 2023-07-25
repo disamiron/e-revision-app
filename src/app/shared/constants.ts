@@ -7,7 +7,7 @@ export const urlValues = {
   scan: 'scan',
   product: 'product',
   search: 'search',
-  searchShop: 'search-shop',
+  storeSearch: 'store-search',
   shop: 'shop',
 
   edit: 'edit',
@@ -38,8 +38,10 @@ export const dashboardTitle = {
   revision: 'Ревизия',
   scan: 'Сканирование кода',
   product: 'Продукт',
-  editProduct: 'Редактирование',
+  editProduct: 'Продукт (редактирование)',
+  viewProduct: 'Продукт (просмотр)',
   search: 'Поиск по ревизии',
+  storeSearch: 'Поиск по магазину',
 };
 
 export const shopInfoButtonsText = {

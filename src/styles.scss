@@ -3,3 +3,31 @@
 * :not(mat-icon) {
   font-family: "Roboto Condensed", sans-serif !important;
 }
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+body.scanner-active {
+  --background: transparent;
+  --ion-background-color: transparent;
+}
+
+ion-content {
+  --background: transparent;
+  --ion-background-color: transparent;
+}
+
+ion-app {
+  --background: transparent;
+  --ion-background-color: transparent;
+}
+
+ion-header {
+  --background: var(--white);
+  --ion-background-color: var(--white);
+}
+
+mat-card {
+  background-color: transparent !important;
+}

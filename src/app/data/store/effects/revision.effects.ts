@@ -120,7 +120,7 @@ export class RevisionEffects {
       return this._actions$.pipe(
         ofType(getProductByBarcodeSuccess),
         tap((action) => {
-          // this._utilities.playAudio();
+          this._utilities.playAudio();
           this._utilities.navigateByUrl(
             !action.isShopSearch
               ? urlValues.dashboard +
@@ -146,7 +146,7 @@ export class RevisionEffects {
                   '/' +
                   action.product.barcode +
                   '/' +
-                  urlValues.edit
+                  urlValues.view
           );
         })
       );
@@ -159,7 +159,7 @@ export class RevisionEffects {
       return this._actions$.pipe(
         ofType(getProductByBarcodeFailed),
         tap(() => {
-          // this._utilities.playAudio(true);
+          this._utilities.playAudio(true);
         })
       );
     },
