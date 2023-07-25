@@ -3,12 +3,12 @@
     <ion-toolbar>
       <ion-buttons slot="start">
         <button
-          *ngIf="location.path() !== '/' + urlValues.dashboard"
+          *ngIf="showBackButton"
           mat-icon-button
           color="white"
           (click)="back()"
         >
-          <mat-icon>keyboard_backspace</mat-icon>
+          <mat-icon>arrow_back_ios</mat-icon>
         </button>
       </ion-buttons>
 

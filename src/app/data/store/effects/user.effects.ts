@@ -54,6 +54,19 @@ export class UserEffects {
             this._utilities.navigateByUrl(urlValues.dashboard);
             this._utilities.snackBarMessage('Добро пожаловать');
           }
+
+          let favoriteShopId: { shopId?: string } =
+            this._storageService.getItem(StorageType.FavoriteShopId);
+
+          if (action.isAppInit && favoriteShopId?.shopId) {
+            this._utilities.navigateByUrl(
+              urlValues.dashboard +
+                '/' +
+                urlValues.shop +
+                '/' +
+                favoriteShopId?.shopId
+            );
+          }
         })
       );
     },

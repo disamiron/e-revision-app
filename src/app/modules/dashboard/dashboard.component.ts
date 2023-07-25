@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   OnInit,
   ViewChild,
@@ -66,7 +67,10 @@ export class DashboardComponent implements OnInit {
   public currentUser$: Observable<IUser | null> =
     this._store.select(selectCurrentUser);
 
-  private _prevLocation$ = this._store.select(selectPrevLocaction);
+  private _prevLocation$: Observable<string | null> =
+    this._store.select(selectPrevLocaction);
+
+  public showBackButton: boolean = false;
 
   public selectRevisionIsLoading$ = this._store.select(selectRevisionIsLoading);
   public selectUserIsLoading$ = this._store.select(selectUserIsLoading);
@@ -74,10 +78,11 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private _activatedRoute: ActivatedRoute,
+    private _location: Location,
     private _router: Router,
     private _storage: StorageService,
     private _store: Store,
-    public location: Location
+    private _cdr: ChangeDetectorRef
   ) {}
 
   public ngOnInit(): void {
@@ -90,6 +95,7 @@ export class DashboardComponent implements OnInit {
     this.title = deepest.data.title;
 
     this._setTitle();
+    this._showBackButtonSub();
 
     this._initVolumeSettings();
   }
@@ -111,6 +117,20 @@ export class DashboardComponent implements OnInit {
       )
       .subscribe((title: string) => {
         this.title = title;
+      });
+  }
+
+  private _showBackButtonSub() {
+    this._prevLocation$
+      .pipe(untilDestroyed(this))
+      .subscribe((prevLocation: string | null) => {
+        const buttonBackIsShowed: boolean =
+          this._location.path() !== '/' + urlValues.dashboard &&
+          prevLocation !== urlValues.dashboard;
+
+        this.showBackButton = buttonBackIsShowed;
+
+        this._cdr.detectChanges();
       });
   }
 
@@ -155,7 +175,7 @@ export class DashboardComponent implements OnInit {
       if (v) {
         this._router.navigateByUrl(v);
       } else {
-        this.location.back();
+        this._location.back();
       }
     });
   }
