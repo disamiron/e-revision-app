@@ -10,9 +10,9 @@
         </mat-grid-tile>
         <!-- -- -->
         <mat-grid-tile>
-          <mat-form-field appearance="fill">
+          <mat-form-field appearance="fill" (click)="copyLocalCode()">
             <mat-label>Локальный код</mat-label>
-            <input formControlName="localCode" matInput />
+            <input class="value-to-copy" formControlName="localCode" matInput />
           </mat-form-field>
         </mat-grid-tile>
 

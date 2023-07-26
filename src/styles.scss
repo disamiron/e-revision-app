@@ -31,3 +31,8 @@ ion-header {
 mat-card {
   background-color: transparent !important;
 }
+
+.value-to-copy {
+  color: var(--blue) !important;
+  text-decoration: underline !important;
+}

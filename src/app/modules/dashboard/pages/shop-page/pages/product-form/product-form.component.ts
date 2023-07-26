@@ -260,4 +260,10 @@ export class ProductFormComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
+  public copyLocalCode() {
+    this._utilities.writeValueToClipboard(
+      this.productForm.getRawValue().localCode
+    );
+  }
 }

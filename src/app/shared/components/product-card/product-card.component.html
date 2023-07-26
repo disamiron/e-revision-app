@@ -14,12 +14,16 @@
   <mat-card-content>
     <mat-card-subtitle>
       Штрих-код:
-      <span>{{ product.barcode }}</span>
+      <span class="value-to-copy" (click)="copyValue(product.barcode)">{{
+        product.barcode
+      }}</span>
     </mat-card-subtitle>
 
     <mat-card-subtitle>
       Локальный код:
-      <span>{{ product.localCode }}</span>
+      <span class="value-to-copy" (click)="copyValue(product.localCode)">{{
+        product.localCode
+      }}</span>
     </mat-card-subtitle>
 
     <mat-card-subtitle *ngIf="!currentUserWithoutRights">

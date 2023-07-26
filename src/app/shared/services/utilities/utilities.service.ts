@@ -5,6 +5,8 @@ import { StorageService } from '../storage/storage.service';
 import { StorageType } from '../storage/storage.type';
 import { Haptics } from '@capacitor/haptics';
 import { TextToSpeech } from '@capacitor-community/text-to-speech';
+import { Clipboard } from '@capacitor/clipboard';
+import { from, take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -63,5 +65,15 @@ export class UtilitiesService {
     };
 
     speak();
+  }
+
+  public writeValueToClipboard(value: string) {
+    from(
+      Clipboard.write({
+        string: value,
+      }).then(() => this.snackBarMessage(`Скопировано значение: ${value}`))
+    )
+      .pipe(take(1))
+      .subscribe();
   }
 }
