@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Directory, Filesystem } from '@capacitor/filesystem';
+import { Directory, Filesystem, Encoding } from '@capacitor/filesystem';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Store } from '@ngrx/store';
 import moment from 'moment';
@@ -8,7 +8,6 @@ import { Observable, filter, take } from 'rxjs';
 import { setPrevLocationData } from 'src/app/data/store/actions/location.actions';
 import {
   startRevisionAction,
-  startUploadRevisionFileAction,
   stopRevisionAction,
 } from 'src/app/data/store/actions/revision.actions';
 import { getShopByShopIdAction } from 'src/app/data/store/actions/shop.actions';
@@ -188,6 +187,7 @@ export class ShopRevisionComponent implements OnInit {
               data: content!,
               directory: directory,
               recursive: true,
+              encoding: Encoding.UTF8,
             })
               .then(() => {
                 this._utilities.snackBarMessage(

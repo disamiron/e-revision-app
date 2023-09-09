@@ -140,6 +140,10 @@ export class BaseHttpService {
     const code = e.status;
 
     switch (code) {
+      case 0:
+        this._utils.snackBarMessage('Отсутствует соединение с интернетом');
+        break;
+
       case 500:
         this._utils.snackBarMessage('Непредвиденная ошибка');
         break;
@@ -150,11 +154,9 @@ export class BaseHttpService {
         break;
 
       case 403:
-        e.error.applicationErrorCode === 'notEnoughRightsToCompleteRevision'
-          ? this._utils.snackBarMessage(
-              e.error?.message ? e.error.message : 'Непредвиденная ошибка'
-            )
-          : this._store.dispatch(logoutActionSuccess());
+        this._utils.snackBarMessage(
+          e.error?.message ? e.error.message : 'Непредвиденная ошибка'
+        );
         break;
 
       default:

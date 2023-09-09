@@ -106,10 +106,17 @@
           {{ menuButtonsText.vibration }}
         </button>
 
-        <button mat-button color="white" (click)="logout()">
+        <button mat-button color="white" (click)="logout()" class="mt-10">
           <mat-icon>exit_to_app</mat-icon>
           {{ menuButtonsText.logout }}
         </button>
+
+        <a href="https://t.me/nozikov" target="_blank">
+          <button mat-button color="white">
+            <mat-icon>send</mat-icon>
+            Разработчик
+          </button>
+        </a>
       </div>
     </div>
   </ion-content>

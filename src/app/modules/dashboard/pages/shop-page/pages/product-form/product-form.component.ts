@@ -8,10 +8,10 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Store } from '@ngrx/store';
-import { Observable, filter, forkJoin, take } from 'rxjs';
+import { Observable, forkJoin, take } from 'rxjs';
 import { setPrevLocationData } from 'src/app/data/store/actions/location.actions';
 import { selectRevisionCurrentProduct } from 'src/app/data/store/selectors/revision.selectors';
 import { selectCurrentShopId } from 'src/app/data/store/selectors/shop.selectors';
@@ -44,6 +44,8 @@ export class ProductFormComponent implements OnInit, AfterViewInit {
   public isEditMode: boolean = this._activatedRoute.snapshot.data?.isEditMode;
   public isViewMode: boolean = this._activatedRoute.snapshot.data?.isViewMode;
 
+  public isLoading: boolean = false;
+
   @ViewChild('quantityInput', { static: false }) quantityInput:
     | ElementRef
     | undefined;
@@ -54,7 +56,7 @@ export class ProductFormComponent implements OnInit, AfterViewInit {
     quantity: [null],
     productName: [null],
     price: [null],
-    scannedQuantity: [null, Validators.required],
+    scannedQuantity: [null],
     createdQuantity: [null, Validators.required],
     shippedQuantity: [null],
     unitsPerPack: [null],
@@ -163,6 +165,11 @@ export class ProductFormComponent implements OnInit, AfterViewInit {
   }
 
   public sumbit() {
+    if (this.productForm.invalid || this.isLoading) {
+      return;
+    }
+    this.isLoading = true;
+
     this._currentProduct$.pipe(take(1)).subscribe((product) => {
       let warning =
         +product?.quantity! - +product?.scannedQuantity! <
@@ -184,9 +191,12 @@ export class ProductFormComponent implements OnInit, AfterViewInit {
         },
       })
       .afterClosed()
-      .pipe(filter((v) => v === 'confirm'))
-      .subscribe(() => {
-        this._confirmSubmit();
+      .subscribe((v) => {
+        if (v === 'confirm') {
+          this._confirmSubmit();
+        } else {
+          this.isLoading = false;
+        }
       });
   }
 
@@ -214,15 +224,6 @@ export class ProductFormComponent implements OnInit, AfterViewInit {
           .saveProduct(this._shopId!, modProduct)
           .pipe(untilDestroyed(this))
           .subscribe(() => {
-            this._utilities.snackBarMessage(
-              'Товар добавлен. Изменения сохранены.',
-              600
-            );
-
-            this._utilities.announceTheNumber(
-              this.productForm.value.createdQuantity
-            );
-
             this._utilities.navigateByUrl(
               urlValues.dashboard +
                 '/' +
@@ -234,17 +235,21 @@ export class ProductFormComponent implements OnInit, AfterViewInit {
                 '/' +
                 urlValues.scan
             );
+
+            this._utilities.snackBarMessage(
+              'Товар добавлен. Изменения сохранены.',
+              600
+            );
+
+            this._utilities.announceTheNumber(
+              this.productForm.value.createdQuantity
+            );
           });
       } else {
         this._revistion
           .editProduct(this._shopId!, modProduct)
           .pipe(untilDestroyed(this))
           .subscribe(() => {
-            this._utilities.snackBarMessage(
-              'Значения изменены и сохранены.',
-              600
-            );
-
             this._utilities.navigateByUrl(
               urlValues.dashboard +
                 '/' +
@@ -255,6 +260,11 @@ export class ProductFormComponent implements OnInit, AfterViewInit {
                 urlValues.revision +
                 '/' +
                 urlValues.search
+            );
+
+            this._utilities.snackBarMessage(
+              'Значения изменены и сохранены.',
+              600
             );
           });
       }

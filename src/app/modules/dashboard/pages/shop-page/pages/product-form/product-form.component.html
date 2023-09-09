@@ -31,14 +31,16 @@
         </mat-grid-tile>
         <!-- -- -->
 
-        <mat-grid-tile *ngIf="!currentUserWithoutRights">
+        <mat-grid-tile>
           <mat-form-field appearance="fill">
             <mat-label>На складе</mat-label>
             <input formControlName="quantity" matInput />
           </mat-form-field>
         </mat-grid-tile>
 
-        <mat-grid-tile *ngIf="!isEditMode && !currentUserWithoutRights">
+        <mat-grid-tile
+          *ngIf="!isEditMode && !currentUserWithoutRights && !isViewMode"
+        >
           <mat-form-field appearance="fill">
             <mat-label>Отсканированно</mat-label>
             <input
@@ -57,7 +59,10 @@
           </mat-form-field>
         </mat-grid-tile>
         <!-- -- -->
-        <mat-grid-tile [colspan]="3" *ngIf="!isViewMode">
+      </mat-grid-list>
+
+      <mat-grid-list cols="3" rowHeight="90px">
+        <mat-grid-tile [colspan]="3" *ngIf="!isViewMode" class="quantity">
           <mat-form-field appearance="fill">
             <mat-label>{{
               isEditMode ? "Отсканированное количество" : "Количество"
@@ -80,7 +85,7 @@
         *ngIf="!isViewMode"
         mat-raised-button
         color="accent"
-        [disabled]="productForm.invalid"
+        [disabled]="productForm.invalid || isLoading"
         (click)="sumbit()"
       >
         <mat-icon>library_add</mat-icon>

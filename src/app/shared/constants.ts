@@ -55,7 +55,7 @@ export const shopRevisonButtonsText = {
   scanning: 'Сканирование',
   search: 'Поиск по ревизии',
   sendToMail: 'Отправить результат',
-  downloadFile: 'Скачать результат',
+  saveFile: 'Скачать результат',
   uploadFile: 'Загрузить файл ревизии',
   start: 'Начать ревизию',
   complete: 'Закончить ревизию',

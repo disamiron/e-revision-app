@@ -26,9 +26,14 @@
       }}</span>
     </mat-card-subtitle>
 
-    <mat-card-subtitle *ngIf="!currentUserWithoutRights">
+    <mat-card-subtitle>
       На складе:
       <span>{{ product.quantity }} шт.</span>
+    </mat-card-subtitle>
+
+    <mat-card-subtitle *ngIf="product.shippedQuantity">
+      Товаров в пути:
+      <span>{{ product.shippedQuantity }} шт.</span>
     </mat-card-subtitle>
 
     <mat-card-subtitle *ngIf="product?.unitsPerPack"

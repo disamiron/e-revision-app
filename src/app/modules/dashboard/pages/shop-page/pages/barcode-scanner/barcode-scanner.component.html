@@ -9,11 +9,12 @@
       <div class="buttons">
         <button
           *ngIf="isNative"
-          mat-mini-fab
+          mat-raised-button
           color="primary"
           class="manual-key"
           (click)="changeScanMethod()"
         >
+          Сканировать
           <mat-icon> speaker_phone </mat-icon>
         </button>
 
