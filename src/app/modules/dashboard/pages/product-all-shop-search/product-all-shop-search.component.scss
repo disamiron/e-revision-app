@@ -1,0 +1,44 @@
+:host {
+  margin: 10px 0 0;
+}
+
+mat-card {
+  min-height: 100%;
+  height: auto;
+
+  mat-card-content {
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      mat-form-field {
+        min-width: 300px;
+        width: 100%;
+      }
+    }
+    .buttons {
+      display: flex;
+      gap: 20px;
+    }
+    .product-list {
+      max-width: 800px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+
+      app-product-card:last-child {
+        padding-bottom: 50px;
+      }
+    }
+  }
+}
+
+.scan-method {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  top: 80vh;
+  z-index: 2;
+}

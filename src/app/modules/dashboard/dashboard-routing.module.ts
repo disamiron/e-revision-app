@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ShopListComponent } from './pages/shop-list/shop-list.component';
 import { dashboardTitle, urlValues } from 'src/app/shared/constants';
 import { ShopPageComponent } from './pages/shop-page/shop-page.component';
+import { ProductAllShopSearchComponent } from './pages/product-all-shop-search/product-all-shop-search.component';
 
 const routes: Routes = [
   {
@@ -10,6 +11,13 @@ const routes: Routes = [
     component: ShopListComponent,
     data: {
       title: dashboardTitle.shopList,
+    },
+  },
+  {
+    path: `${urlValues.allShopSearch}`,
+    component: ProductAllShopSearchComponent,
+    data: {
+      title: dashboardTitle.allShopSearch,
     },
   },
   {

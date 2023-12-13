@@ -31,7 +31,7 @@ const DOWNLOAD_HEADERS = {
 export class BaseHttpService {
   private readonly _api = '/api';
 
-  private readonly _baseHref = `http://e-revision.ru${this._api}`;
+  private readonly _baseHref = `https://e-revision.ru${this._api}`;
 
   private _createDefaultHeaders(getBlob?: boolean): HttpHeaders {
     const headers = new HttpHeaders(

@@ -1,6 +1,11 @@
 import { createAction, props } from '@ngrx/store';
 import { ReducerSections, ReducerStatuses } from '../models/reducer';
-import { IError, IShop } from 'src/app/shared/interfaces';
+import {
+  IError,
+  IGlobalProduct,
+  IProduct,
+  IShop,
+} from 'src/app/shared/interfaces';
 import { ShopActions } from '../models/shop.model';
 
 export const getShopListAction = createAction(
@@ -29,5 +34,20 @@ export const getShopByShopIdSuccess = createAction(
 
 export const getShopByShopIdFailed = createAction(
   `${ReducerSections.REVISION} ${ShopActions.GetShopByShopId} ${ReducerStatuses.FAILED}`,
+  props<{ error: IError }>()
+);
+
+export const getProductListFromAllShopByByLocalIdAction = createAction(
+  `${ReducerSections.REVISION} ${ShopActions.GetProductListFromAllShopByByLocalId}`,
+  props<{ shopId: string; searchValue: string }>()
+);
+
+export const getProductListFromAllShopByByLocalIdSuccess = createAction(
+  `${ReducerSections.REVISION} ${ShopActions.GetProductListFromAllShopByByLocalId} ${ReducerStatuses.SUCCESS}`,
+  props<{ productList: IGlobalProduct | null }>()
+);
+
+export const getProductListFromAllShopByByLocalIdFailed = createAction(
+  `${ReducerSections.REVISION} ${ShopActions.GetProductListFromAllShopByByLocalId} ${ReducerStatuses.FAILED}`,
   props<{ error: IError }>()
 );

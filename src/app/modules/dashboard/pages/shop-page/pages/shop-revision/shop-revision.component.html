@@ -13,6 +13,16 @@
       Ревизия в процессе
     </mat-card-subtitle>
 
+    <mat-card-subtitle *ngIf="shop.revision?.startedBy">
+      Инициатор ревизии:
+      <span>
+        <a class="phone" [href]="'tel:+' + shop.revision?.startedBy?.phone"
+          >{{ shop.revision?.startedBy?.username
+          }}<mat-icon> phone</mat-icon></a
+        ></span
+      >
+    </mat-card-subtitle>
+
     <mat-card-subtitle *ngIf="shop.revision?.startTime">
       {{ shop?.revision?.endTime ? "Начало/завершение:" : "Начало ревизии:" }}
       <span

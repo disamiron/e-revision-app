@@ -50,6 +50,22 @@ export class UserEffects {
             manualEntryOnly: true,
           });
 
+          let volume = this._storageService.getItem(StorageType.Volume);
+          if (volume === null) {
+            this._storageService.setItem(StorageType.Volume, {
+              noSound: false,
+              noVibration: false,
+              noTextToSpeech: false,
+            });
+          }
+
+          let shippedSwitch = this._storageService.getItem(
+            StorageType.ShippedSwitch
+          );
+          if (shippedSwitch === null) {
+            this._storageService.setItem(StorageType.ShippedSwitch, false);
+          }
+
           if (!action.isAppInit) {
             this._utilities.navigateByUrl(urlValues.dashboard);
             this._utilities.snackBarMessage('Добро пожаловать');

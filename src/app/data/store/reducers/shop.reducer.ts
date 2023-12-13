@@ -1,5 +1,8 @@
 import { createReducer, on } from '@ngrx/store';
 import {
+  getProductListFromAllShopByByLocalIdAction,
+  getProductListFromAllShopByByLocalIdFailed,
+  getProductListFromAllShopByByLocalIdSuccess,
   getShopByShopIdAction,
   getShopByShopIdFailed,
   getShopByShopIdSuccess,
@@ -11,6 +14,7 @@ import { IShopDataState } from '../models/shop.model';
 
 const initialState: IShopDataState = {
   shopList: null,
+  productsSearchList: null,
   currentShop: null,
   error: null,
   isLoading: false,
@@ -21,6 +25,7 @@ export const shopDataReducer = createReducer(
   on(
     getShopListAction,
     getShopByShopIdAction,
+    getProductListFromAllShopByByLocalIdAction,
     (state: IShopDataState): IShopDataState => ({
       ...state,
       isLoading: true,
@@ -44,8 +49,17 @@ export const shopDataReducer = createReducer(
     })
   ),
   on(
+    getProductListFromAllShopByByLocalIdSuccess,
+    (state: IShopDataState, action): IShopDataState => ({
+      ...state,
+      productsSearchList: action.productList,
+      isLoading: false,
+    })
+  ),
+  on(
     getShopListFailed,
     getShopByShopIdFailed,
+    getProductListFromAllShopByByLocalIdFailed,
     (state: IShopDataState, action): IShopDataState => ({
       ...state,
       error: action.error,

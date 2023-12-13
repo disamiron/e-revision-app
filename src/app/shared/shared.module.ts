@@ -8,11 +8,13 @@ import { ShopCardComponent } from './components/shop-card/shop-card.component';
 import { GridButtonComponent } from './components/grid-button/grid-button.component';
 import { ConfirmComponent } from './modals/confirm/confirm.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
+import { GlobalProductCardComponent } from './components/global-product-card/global-product-card.component';
 
 @NgModule({
   declarations: [
     ShopCardComponent,
     ProductCardComponent,
+    GlobalProductCardComponent,
     GridButtonComponent,
     ConfirmComponent,
   ],
@@ -27,6 +29,7 @@ import { ProductCardComponent } from './components/product-card/product-card.com
   exports: [
     ShopCardComponent,
     ProductCardComponent,
+    GlobalProductCardComponent,
     GridButtonComponent,
     MaterialModule,
     FormsModule,

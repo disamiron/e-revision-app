@@ -77,6 +77,10 @@ import { Capacitor } from '@capacitor/core';
               noTextToSpeech: false,
             });
           }
+          let shippedSwitch = storage.getItem(StorageType.ShippedSwitch);
+          if (shippedSwitch === null) {
+            storage.setItem(StorageType.ShippedSwitch, false);
+          }
         };
       },
       multi: true,

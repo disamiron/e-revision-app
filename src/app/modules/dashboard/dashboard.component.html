@@ -75,6 +75,12 @@
       </div>
 
       <div class="menu__buttons">
+        <mat-checkbox
+          color="primary"
+          [checked]="shippedSwitch"
+          (change)="shippedSwitchChange()"
+          >Учет товаров в пути при отправке результата</mat-checkbox
+        >
         <button
           mat-button
           color="white"

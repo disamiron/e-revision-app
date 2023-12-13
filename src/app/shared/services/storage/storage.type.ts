@@ -9,4 +9,5 @@ export enum StorageType {
   Volume = 'REVISION_VOLUME',
   Notification = 'REVISION_NOTIFICATION',
   FavoriteShopId = 'REVISION_FAVORITE_SHOP_ID',
+  ShippedSwitch = 'REVISION_SHIPPED_SWITCH',
 }

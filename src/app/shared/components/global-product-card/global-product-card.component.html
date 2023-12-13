@@ -1,0 +1,30 @@
+<mat-card *ngIf="product">
+  <mat-card-header>
+    <mat-card-title>{{ product.description }}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mat-card-subtitle>
+      Локальный код:
+      <span class="value-to-copy" (click)="copyValue(product.localCode)">{{
+        product.localCode
+      }}</span>
+    </mat-card-subtitle>
+    <mat-card-subtitle *ngIf="product?.unitsPerPack"
+      >Единиц в упакове:
+      <span>{{ product.unitsPerPack }} шт.</span>
+    </mat-card-subtitle>
+    <mat-card-title>Остатки в магазинах:</mat-card-title>
+    <ng-container *ngFor="let shop of product.shops; index as i">
+      <mat-card-subtitle>
+        <span>{{ i + 1 }}. {{ shop.shopName }}</span>
+      </mat-card-subtitle>
+      <mat-card-subtitle>
+        Количество: <span>{{ shop.quantity }} шт.</span>
+      </mat-card-subtitle>
+      <mat-card-subtitle>
+        {{ shop.lastShopUpdate | date : "dd.MM.yyyy HH:mm" }}
+      </mat-card-subtitle>
+    </ng-container>
+  </mat-card-content>
+</mat-card>

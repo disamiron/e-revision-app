@@ -64,6 +64,8 @@ export class DashboardComponent implements OnInit {
   public noVibration: boolean = false;
   public noTextToSpeech: boolean = false;
 
+  public shippedSwitch: boolean = false;
+
   public currentUser$: Observable<IUser | null> =
     this._store.select(selectCurrentUser);
 
@@ -98,6 +100,7 @@ export class DashboardComponent implements OnInit {
     this._showBackButtonSub();
 
     this._initVolumeSettings();
+    this._initShippedSwitchSettings();
   }
 
   private _setTitle(): void {
@@ -144,6 +147,16 @@ export class DashboardComponent implements OnInit {
     this.noSound = volume?.noSound;
     this.noVibration = volume?.noVibration;
     this.noTextToSpeech = volume?.noTextToSpeech;
+  }
+
+  private _initShippedSwitchSettings() {
+    this.shippedSwitch = this._storage.getItem(StorageType.ShippedSwitch);
+    this._cdr.detectChanges();
+  }
+
+  public shippedSwitchChange() {
+    this.shippedSwitch = !this.shippedSwitch;
+    this._storage.setItem(StorageType.ShippedSwitch, this.shippedSwitch);
   }
 
   public closeMenu(): void {

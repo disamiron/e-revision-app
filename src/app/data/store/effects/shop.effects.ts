@@ -3,6 +3,9 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { RevisionService } from 'src/app/shared/services/revision/revision.service';
 import {
+  getProductListFromAllShopByByLocalIdAction,
+  getProductListFromAllShopByByLocalIdFailed,
+  getProductListFromAllShopByByLocalIdSuccess,
   getShopByShopIdAction,
   getShopByShopIdFailed,
   getShopByShopIdSuccess,
@@ -10,7 +13,7 @@ import {
   getShopListFailed,
   getShopListSuccess,
 } from '../actions/shop.actions';
-import { IShop, IShopArray } from 'src/app/shared/interfaces';
+import { IGlobalProduct, IShop, IShopArray } from 'src/app/shared/interfaces';
 import {
   startRevisionSuccess,
   startUploadRevisionFileSuccess,
@@ -59,7 +62,7 @@ export class ShopEffects {
     );
   });
 
-  updateCurrentShopAction$ = createEffect(() => {
+  public updateCurrentShopAction$ = createEffect(() => {
     return this._actions$.pipe(
       ofType(
         startRevisionSuccess,
@@ -76,6 +79,33 @@ export class ShopEffects {
             return of(getShopByShopIdFailed({ error }));
           })
         );
+      })
+    );
+  });
+
+  public getProductListFromAllShopByByLocalId$ = createEffect(() => {
+    return this._actions$.pipe(
+      ofType(getProductListFromAllShopByByLocalIdAction),
+      switchMap((action) => {
+        return this._revisionService
+          .searchByLocalIdAllShops(action.searchValue)
+          .pipe(
+            map((productList: IGlobalProduct) => {
+              const filteredProductList: IGlobalProduct = {
+                ...productList,
+                shops: productList.shops
+                  .filter((shop) => shop.quantity !== 0)
+                  .sort((a, b) => b.quantity - a.quantity),
+              };
+
+              return getProductListFromAllShopByByLocalIdSuccess({
+                productList: filteredProductList,
+              });
+            }),
+            catchError((error) => {
+              return of(getProductListFromAllShopByByLocalIdFailed({ error }));
+            })
+          );
       })
     );
   });

@@ -28,3 +28,8 @@ export const selectCurrentShopId = createSelector(
   selectFeature,
   (state: IShopDataState) => state.currentShop?.shopId
 );
+
+export const selectAllShopsProductsSearchList = createSelector(
+  selectFeature,
+  (state: IShopDataState) => state.productsSearchList
+);

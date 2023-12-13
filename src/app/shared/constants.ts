@@ -9,6 +9,7 @@ export const urlValues = {
   search: 'search',
   storeSearch: 'store-search',
   shop: 'shop',
+  allShopSearch: 'all-shop-search',
 
   edit: 'edit',
   view: 'view',
@@ -21,6 +22,12 @@ export const appSections = [
     url: '../' + urlValues.dashboard,
     name: 'Список магазинов',
     icon: 'view_list',
+    isAdminRights: false,
+  },
+  {
+    url: '../' + urlValues.dashboard + '/' + urlValues.allShopSearch,
+    name: 'Поиск по всем магазинам',
+    icon: 'search',
     isAdminRights: false,
   },
 ];
@@ -42,6 +49,7 @@ export const dashboardTitle = {
   viewProduct: 'Продукт (просмотр)',
   search: 'Поиск по ревизии',
   storeSearch: 'Поиск по магазину',
+  allShopSearch: 'Поиск по всем магазинам',
 };
 
 export const shopInfoButtonsText = {

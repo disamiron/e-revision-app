@@ -13,6 +13,12 @@ export interface IUser {
 export interface ILoginData {
   phoneNumber: string;
   password: string;
+  phoneId: IPhoneId;
+}
+
+export interface IPhoneId {
+  type: string;
+  id: string | null;
 }
 
 export interface IError {
@@ -28,6 +34,7 @@ export interface IShop {
   status: RevisionStatus;
   isProductsLoaded: boolean;
   revision: IShopRevisionInfo | null;
+  fileUploadDate?: string;
 }
 
 export interface IShopRevisionInfo {
@@ -36,6 +43,12 @@ export interface IShopRevisionInfo {
   scannedLocalCodes?: number;
   startTime: string;
   endTime: string;
+  startedBy: IStartedBy | null;
+}
+
+export interface IStartedBy {
+  phone: string;
+  username: string;
 }
 
 export interface IShopArray {
@@ -66,4 +79,16 @@ export interface IProduct {
 
 export interface IProductArray {
   content: IProduct[];
+}
+
+export interface IGlobalProduct {
+  description: string;
+  localCode: string;
+  price: number;
+  unitsPerPack: number;
+  shops: {
+    lastShopUpdate: string;
+    quantity: number;
+    shopName: string;
+  }[];
 }
